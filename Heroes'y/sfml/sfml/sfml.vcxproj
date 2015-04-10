@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Field.cpp" />
     <ClCompile Include="..\Background.cpp" />
     <ClCompile Include="..\Entity.cpp" />
     <ClCompile Include="..\EventHandler.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="..\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Field.h" />
     <ClInclude Include="..\Background.h" />
     <ClInclude Include="..\Entity.h" />
     <ClInclude Include="..\EventHandler.h" />

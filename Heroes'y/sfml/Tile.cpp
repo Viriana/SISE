@@ -1,13 +1,11 @@
 #include "Tile.h"
 #include "Game.h"
+
 Tile::Tile()
-
 {
-
 }
 Tile::~Tile()
 {
-	
 }
 
 bool Tile::CanBeDestroyed()

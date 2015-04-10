@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "Background.h"
 #include "Knight.h"
+#include "Field.h"
 
 using namespace sf;
 using namespace std;
@@ -30,4 +31,5 @@ private:
 	vector <Entity *> pendingDestroy;
 	Background* background;
 	Knight* knight;
+	Field* field;
 };

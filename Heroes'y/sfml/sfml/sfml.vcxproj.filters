@@ -11,6 +11,7 @@
     <ClCompile Include="..\Main.cpp" />
     <ClCompile Include="..\Tile.cpp" />
     <ClCompile Include="..\Knight.cpp" />
+    <ClCompile Include="..\Field.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Background.h" />
@@ -22,5 +23,6 @@
     <ClInclude Include="..\SpriteRenderer.h" />
     <ClInclude Include="..\Tile.h" />
     <ClInclude Include="..\Knight.h" />
+    <ClInclude Include="..\Field.h" />
   </ItemGroup>
 </Project>

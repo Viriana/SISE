@@ -16,8 +16,12 @@ void Level::Init()
 	entities.push_back(background);
 
 	knight = new Knight();
-	knight->setPosition(Vector2f(20,20));
+	knight->setPosition(Vector2f(0,40));
 	entities.push_back(knight);
+
+	field = new Field();
+	field->setPosition(Vector2f(80, 102));
+	entities.push_back(field);
 }
 
 void Level::Update( float dt )
