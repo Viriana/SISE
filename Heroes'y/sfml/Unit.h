@@ -5,10 +5,10 @@
 using namespace std;
 using namespace sf;
 
-class Player : public Entity
+class Unit : public Entity
 {
 public:
-	Player();
-	~Player();
+	Unit();
+	~Unit();
 };
 

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Player.h"
+#include "Unit.h"
 
 using namespace std;
 using namespace sf;
 
-class Sorcer : public Player
+class Sorcer : public Unit
 {
 public:
 	Sorcer();
