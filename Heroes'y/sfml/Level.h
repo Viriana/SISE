@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "Background.h"
 #include "Knight.h"
+#include "Sorcerer.h"
 #include "Field.h"
 
 using namespace sf;
@@ -31,5 +32,7 @@ private:
 	vector <Entity *> pendingDestroy;
 	Background* background;
 	Knight* knight;
+	Sorcerer* sorcerer;
 	Field* field;
+	
 };

@@ -19,6 +19,10 @@ void Level::Init()
 	knight->setPosition(Vector2f(0,40));
 	entities.push_back(knight);
 
+	sorcerer = new Sorcerer();
+	sorcerer->setPosition(Vector2f(60, 100));
+	entities.push_back(sorcerer);
+
 	field = new Field();
 	field->setPosition(Vector2f(80, 102));
 	entities.push_back(field);
