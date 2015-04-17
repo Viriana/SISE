@@ -9,6 +9,7 @@
 #include "Knight.h"
 #include "Sorcerer.h"
 #include "Field.h"
+#include "Player.h"
 
 using namespace sf;
 using namespace std;
@@ -33,6 +34,7 @@ private:
 	Background* background;
 	Knight* knight;
 	Sorcerer* sorcerer;
+	Player* players[2];
 	Field* field;
 	
 };

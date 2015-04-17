@@ -17,5 +17,6 @@ public:
 private:
 	Image *img;
 	Texture *texture;
+	Vector2f *position = new Vector2f(60, 40);
 };
 

@@ -10,6 +10,7 @@ Sorcerer::Sorcerer()
 	strength = 4;
 	range = 4;
 	movementSpeed = 2;
+	setStartPosition(*position);
 	img = new Image();
 	img->loadFromFile("Data\\graphics\\battle.png");
 	img->createMaskFromColor(Color(0, 255, 255, 255));

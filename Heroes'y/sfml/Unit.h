@@ -25,6 +25,10 @@ public:
 	virtual int getArmor();
 	virtual void attack();
 	virtual int getMovementSpeed();
+	virtual Vector2f getStartPosition();
+	virtual void setStartPosition(Vector2f startPosition);
+	virtual void setCurrentPosition(Vector2f currentPosition);
+	virtual Vector2f getCurrentPosition();
 	bool GetIsDestroyed();
 	void Destroy();
 
@@ -39,6 +43,9 @@ protected:
 	int armor;
 	int currentHealthPoints;
 	int movementSpeed;
+	Vector2f currentPosition;
+	Vector2f startPosition;
+
 	
 };
 

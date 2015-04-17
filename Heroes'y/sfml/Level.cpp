@@ -15,17 +15,28 @@ void Level::Init()
 	background->setPosition(Vector2f(0, 20));
 	entities.push_back(background);
 
-	knight = new Knight();
-	knight->setPosition(Vector2f(0,40));
-	entities.push_back(knight);
-
-	sorcerer = new Sorcerer();
-	sorcerer->setPosition(Vector2f(60, 100));
-	entities.push_back(sorcerer);
-
 	field = new Field();
 	field->setPosition(Vector2f(80, 102));
 	entities.push_back(field);
+	
+
+	for (int i = 0; i < 2; i++)
+	{
+
+			knight = new Knight();
+			knight->setPosition(knight->getStartPosition());
+			entities.push_back(knight);
+
+			sorcerer = new Sorcerer();
+			sorcerer->setPosition(sorcerer->getStartPosition());
+			entities.push_back(sorcerer);
+
+
+		players[i] = new Player(knight, sorcerer);
+		entities.push_back(players[i]);
+	}
+
+
 }
 
 void Level::Update( float dt )

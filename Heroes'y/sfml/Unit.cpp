@@ -79,3 +79,23 @@ int Unit::getMovementSpeed()
 {
 	return movementSpeed;
 }
+
+Vector2f Unit::getStartPosition()
+{
+	return startPosition;
+}
+
+void Unit::setStartPosition(Vector2f startPosition)
+{
+	this->startPosition = startPosition;
+}
+
+void Unit::setCurrentPosition(Vector2f currentPosition)
+{
+	this->currentPosition = currentPosition;
+}
+
+Vector2f Unit::getCurrentPosition()
+{
+	return currentPosition;
+}
