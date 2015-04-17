@@ -195,3 +195,19 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 /Heroes'y/sfml/*.sdf
+Debug
+SFML-2.1
+/Heroes'y/sfml/sfml/libsndfile-1.dll
+/Heroes'y/sfml/sfml/openal32.dll
+/Heroes'y/sfml/sfml/sfml.vcxproj
+/Heroes'y/sfml/sfml/sfml.vcxproj.filters
+/Heroes'y/sfml/sfml/sfml-audio-2.dll
+/Heroes'y/sfml/sfml/sfml-audio-d-2.dll
+/Heroes'y/sfml/sfml/sfml-graphics-2.dll
+/Heroes'y/sfml/sfml/sfml-graphics-d-2.dll
+/Heroes'y/sfml/sfml/sfml-network-2.dll
+/Heroes'y/sfml/sfml/sfml-network-d-2.dll
+/Heroes'y/sfml/sfml/sfml-system-2.dll
+/Heroes'y/sfml/sfml/sfml-system-d-2.dll
+/Heroes'y/sfml/sfml/sfml-window-2.dll
+/Heroes'y/sfml/sfml/sfml-window-d-2.dll
