@@ -10,7 +10,8 @@ Archer::Archer()
 	range = 4;
 	movementSpeed = 2;
 	dexterity = 70;
-
+	isAlive = true;
+	isSelected = false;
 	setStartPosition(*position);
 	img = new Image();
 	img->loadFromFile("Data\\graphics\\battle.png");
