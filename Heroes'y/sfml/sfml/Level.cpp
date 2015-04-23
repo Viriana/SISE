@@ -35,6 +35,9 @@ void Level::Init()
 			healer->setPosition(healer->getStartPosition());
 			entities.push_back(healer);
 
+			archer = new Archer();
+			archer->setPosition(archer->getStartPosition());
+			entities.push_back(archer);
 
 			//players[i] = new Player(knight, sorcerer, healer);
 		    //entities.push_back(players[i]);

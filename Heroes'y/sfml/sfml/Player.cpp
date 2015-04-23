@@ -1,10 +1,12 @@
 #include "Player.h"
 
 
-Player::Player(Knight* knight, Sorcerer* sorcerer, string name)
+Player::Player(Knight* knight, Sorcerer* sorcerer, Healer* healer, Archer* archer, string name)
 {
 	units[0] = knight;
 	units[1] = sorcerer;
+	units[2] = healer;
+	units[3] = archer;
 	this->name = name;
 }
 
@@ -36,6 +38,10 @@ void Player::decide(Player *opponent)
 			cout << "Wybrales rycerza " << units[decision]->getIsSelected() << endl;
 		else if (decision == 1)
 			cout << "Wybrales maga " << +units[decision]->getIsSelected() << endl;
+		else if (decision == 2)
+			cout << "Wybrales uzdrowiciela " << +units[decision]->getIsSelected() << endl;
+		else if (decision == 3)
+			cout << "Wybrales lucznika " << +units[decision]->getIsSelected() << endl;
 		//wybieranie atakowanego wroga
 		cout << name + " wybierz wroga jednostke ";
 		cin >> decision;
