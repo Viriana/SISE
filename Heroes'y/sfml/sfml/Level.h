@@ -36,7 +36,7 @@ private:
 	Knight* knight;
 	Sorcerer* sorcerer;
 	Healer* healer;
-	Player* players[2];
+	Player* players[3];
 	Field* field;
 	
 };

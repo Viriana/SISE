@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(Knight* knight, Sorcerer* sorcerer) :knight_(knight), sorcerer_(sorcerer)
+Player::Player(Knight* knight, Sorcerer* sorcerer, Healer* healer) :knight_(knight), sorcerer_(sorcerer), healer_(healer)
 {
 
 }
