@@ -31,7 +31,7 @@ void Level::Init()
 			sorcerer->setPosition(sorcerer->getStartPosition());
 			entities.push_back(sorcerer);
 
-			knight = new Healer();
+			healer = new Healer();
 			healer->setPosition(healer->getStartPosition());
 			entities.push_back(healer);
 
