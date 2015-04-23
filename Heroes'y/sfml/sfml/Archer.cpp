@@ -9,6 +9,7 @@ Archer::Archer()
 	strength = 3;
 	range = 4;
 	movementSpeed = 2;
+	dexterity = 70;
 
 	setStartPosition(*position);
 	img = new Image();
