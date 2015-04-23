@@ -8,6 +8,7 @@
 #include "Background.h"
 #include "Knight.h"
 #include "Sorcerer.h"
+#include "Healer.h"
 #include "Field.h"
 #include "Player.h"
 
@@ -34,6 +35,7 @@ private:
 	Background* background;
 	Knight* knight;
 	Sorcerer* sorcerer;
+	Healer* healer;
 	Player* players[2];
 	Field* field;
 	

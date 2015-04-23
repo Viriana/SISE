@@ -17,7 +17,7 @@ Healer::Healer()
 	texture = new Texture;
 	texture->loadFromImage(*img);
 	Renderer.SetTexture(*texture);
-	Renderer.Sprite.setTextureRect(IntRect(42, 905, 100, 120)); // left, top, width, height
+	Renderer.Sprite.setTextureRect(IntRect(42, 2658, 100, 200)); // left, top, width, height
 	Renderer.Sprite.setScale(1, 1);
 }
 

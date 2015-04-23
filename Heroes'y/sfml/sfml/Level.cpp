@@ -20,7 +20,7 @@ void Level::Init()
 	entities.push_back(field);
 	
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 3; i++)
 	{
 
 			knight = new Knight();
@@ -31,8 +31,12 @@ void Level::Init()
 			sorcerer->setPosition(sorcerer->getStartPosition());
 			entities.push_back(sorcerer);
 
+			knight = new Healer();
+			healer->setPosition(healer->getStartPosition());
+			entities.push_back(healer);
 
-		players[i] = new Player(knight, sorcerer);
+
+			players[i] = new Player(knight, sorcerer, healer);
 		entities.push_back(players[i]);
 	}
 
