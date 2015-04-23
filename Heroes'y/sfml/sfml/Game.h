@@ -18,13 +18,14 @@ public:
 	virtual ~Game();
 	void play();
 	void Update(float &time);
-	EventHandler eventHandler; 
+	EventHandler eventHandler;
 private:
 	Level* level;
 	Background *background;
 	RenderWindow window;
 	View view;
-	
+	Player *player1;
+	Player *player2;
 	Hud hud;
 	Clock clock;
 	float globalTime;

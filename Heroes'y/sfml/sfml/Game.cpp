@@ -9,7 +9,8 @@ level(0)
 	window.setFramerateLimit(30);
 	window.setView(view);
 	window.setKeyRepeatEnabled(false);
-
+	player1 = new Player(new Knight(), new Sorcerer(), "Orion");
+	player2 = new Player(new Knight(), new Sorcerer(), "Flinch");
 	globalTime = 0.0f;
 	level = new Level();
 	level->Game = this;
@@ -35,9 +36,11 @@ void Game::play()
 		{
 			level-> Render( &window );
 		}
-		
 		hud.display(view, window);
 		window.display();
+		
+		player1->decide(player2);
+		player2->decide(player1);
 	}
 }
 

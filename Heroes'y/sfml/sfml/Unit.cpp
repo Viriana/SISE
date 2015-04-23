@@ -62,7 +62,28 @@ int Unit::getCurrentHealthPoints()
 
 void Unit::setCurrentHealthPoints(int damage)
 {
+
 	currentHealthPoints = currentHealthPoints - damage;
+}
+
+bool Unit::getIsSelected()
+{
+	return isSelected;
+}
+
+void Unit::setIsSelected(bool isSelected)
+{
+	this->isSelected = isSelected;
+}
+
+bool Unit::getIsAlive()
+{
+	return isAlive;
+}
+
+void Unit::setIsAlive(bool isAlive)
+{
+	this->isAlive = isAlive;
 }
 
 int Unit::getArmor()
@@ -70,7 +91,7 @@ int Unit::getArmor()
 	return armor;
 }
 
-void Unit::attack()
+void Unit::attack(Unit *unit)
 {
 
 }

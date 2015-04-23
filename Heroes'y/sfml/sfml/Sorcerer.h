@@ -13,10 +13,11 @@ public:
 	virtual ~Sorcerer();
 	void move();
 	virtual void Update() override;
-	void attack();
+	void attack(Unit *targetUnit);
 private:
 	Image *img;
 	Texture *texture;
 	Vector2f *position = new Vector2f(60, 40);
+	int inteligence;
 };
 

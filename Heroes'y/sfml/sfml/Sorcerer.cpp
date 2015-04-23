@@ -10,6 +10,9 @@ Sorcerer::Sorcerer()
 	strength = 4;
 	range = 4;
 	movementSpeed = 2;
+	inteligence = 70;
+	isAlive = true;
+	isSelected = false;
 	setStartPosition(*position);
 	img = new Image();
 	img->loadFromFile("Data\\graphics\\battle.png");
@@ -31,7 +34,26 @@ void Sorcerer::Update()
 {
 }
 
-void Sorcerer::attack()
+void Sorcerer::attack(Unit *targetUnit)
 {
-
+	int inteligenceTest = rand() % 100 + 1;
+	int damage = strength;
+	if (inteligenceTest <= inteligence)
+	{
+		damage += rand() % 3 + 1;
+		cout << "sila ciosu: " << damage << endl;
+		damage -= targetUnit->getArmor();
+		cout << "Twoj cios trafil przeciwnika zadajac " << damage << " obrazen" << endl;
+		if (targetUnit->getCurrentHealthPoints() > 0)
+		{
+			targetUnit->setCurrentHealthPoints(damage);
+		}
+		if (targetUnit->getCurrentHealthPoints() <= 0)
+		{
+			cout << "umarlem!" << endl;
+			targetUnit->setIsAlive(false);
+		}
+	}
+	else
+		cout << "Chybiles" << endl;
 }

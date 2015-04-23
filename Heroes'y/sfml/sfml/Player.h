@@ -2,20 +2,18 @@
 #include "Unit.h"
 #include "Sorcerer.h"
 #include "Knight.h"
-#include "Healer.h"
 using namespace std;
 
-class Player: public Entity
+class Player : public Entity
 {
 public:
-	Player(Knight* knight, Sorcerer* sorcerer, Healer* healer);
+	Player(Knight* knight, Sorcerer* sorcerer, string name);
 	~Player();
 	Unit* getPlayerUnits(int i);
 	void setPlayerUnits();
+	void decide(Player *opponent);
 private:
 	Unit *units[4];
-	Knight* knight_;
-	Sorcerer* sorcerer_;
-	Healer* healer_;
+	string name;
 };
 

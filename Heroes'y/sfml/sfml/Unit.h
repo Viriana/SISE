@@ -23,13 +23,16 @@ public:
 	virtual int getCurrentHealthPoints();
 	virtual void setCurrentHealthPoints(int damage);
 	virtual int getArmor();
-	virtual void attack();
+	virtual void attack(Unit *unit);
 	virtual int getMovementSpeed();
 	virtual Vector2f getStartPosition();
 	virtual void setStartPosition(Vector2f startPosition);
 	virtual void setCurrentPosition(Vector2f currentPosition);
 	virtual Vector2f getCurrentPosition();
-	bool GetIsDestroyed();
+	virtual bool getIsSelected();
+	virtual void setIsSelected(bool isSelected);
+	bool getIsAlive();
+	void setIsAlive(bool isAlive);
 	void Destroy();
 
 private:
@@ -43,9 +46,11 @@ protected:
 	int armor;
 	int currentHealthPoints;
 	int movementSpeed;
+	bool isSelected;
+	bool isAlive;
 	Vector2f currentPosition;
 	Vector2f startPosition;
 
-	
+
 };
 

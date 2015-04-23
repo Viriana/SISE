@@ -36,8 +36,8 @@ void Level::Init()
 			entities.push_back(healer);
 
 
-			players[i] = new Player(knight, sorcerer, healer);
-		entities.push_back(players[i]);
+			//players[i] = new Player(knight, sorcerer, healer);
+		    //entities.push_back(players[i]);
 	}
 
 
