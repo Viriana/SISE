@@ -11,6 +11,9 @@ Healer::Healer()
 	range = 4;
 	movementSpeed = 2;
 	setStartPosition(*position);
+
+	isAlive = true;
+
 	img = new Image();
 	img->loadFromFile("Data\\graphics\\battle.png");
 	img->createMaskFromColor(Color(0, 255, 255, 255));
@@ -38,4 +41,9 @@ void Healer::Update()
 
 void Healer::heal()
 {
+}
+
+void Healer::attack(Unit* targetUnit)
+{
+
 }

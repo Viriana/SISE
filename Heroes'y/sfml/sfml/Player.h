@@ -9,13 +9,13 @@ using namespace std;
 class Player : public Entity
 {
 public:
-	Player(Knight* knight, Sorcerer* sorcerer, Healer* healer, Archer* archer, string name);
+	Player(string name, float spriteRotation);
 	~Player();
 	Unit* getPlayerUnits(int i);
 	void setPlayerUnits();
 	void decide(Player *opponent);
 private:
-	Unit *units[4];
+	vector <Unit*> units;
 	string name;
 };
 

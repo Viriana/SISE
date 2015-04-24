@@ -28,6 +28,7 @@ public:
 	void Render(RenderWindow* window);
 	Background* GetBackground();
 	Game* Game;
+	vector <Player*> players;
 private:
 	
 	int levelNumber;
@@ -38,7 +39,6 @@ private:
 	Sorcerer* sorcerer;
 	Healer* healer;
 	Archer* archer;
-	Player* players[4];
 	Field* field;
 	
 };

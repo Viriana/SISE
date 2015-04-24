@@ -17,6 +17,11 @@ void SpriteRenderer::SetTexture(sf::Texture& texture)
 	Sprite.setTexture(texture, true);
 }
 
+void SpriteRenderer::SetScale(float a, float b)
+{
+	Sprite.setScale(a, b);
+}
+
 void SpriteRenderer::Move(Vector2f v)
 {
 	Sprite.move( v );

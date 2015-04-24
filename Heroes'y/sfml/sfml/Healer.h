@@ -13,6 +13,7 @@ public:
 	void move();
 	virtual void Update() override;
 	void heal();
+	void attack(Unit *targetUnit);
 private:
 	Image *img;
 	Texture *texture;

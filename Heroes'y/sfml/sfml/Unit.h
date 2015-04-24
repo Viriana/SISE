@@ -34,11 +34,11 @@ public:
 	bool getIsAlive();
 	void setIsAlive(bool isAlive);
 	void Destroy();
+	SpriteRenderer Renderer;
 
 private:
 	bool IsDestroyed;
 protected:
-	SpriteRenderer Renderer;
 	string type;
 	int strength;
 	int range;

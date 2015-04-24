@@ -15,6 +15,7 @@ public:
 	void Move(Vector2f v);
 	FloatRect GetBounds();
 	Vector2f GetPosition();
+	void SetScale(float a, float b);
 private:
 	int LastAnimationIndex;
 	int LastAnimationFrameIndex;

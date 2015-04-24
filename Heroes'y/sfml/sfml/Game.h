@@ -24,8 +24,6 @@ private:
 	Background *background;
 	RenderWindow window;
 	View view;
-	Player *player1;
-	Player *player2;
 	Hud hud;
 	Clock clock;
 	float globalTime;
