@@ -16,6 +16,6 @@ public:
 private:
 	Image *img;
 	Texture *texture;
-	Vector2f *position = new Vector2f(50, 150);
+	Vector2f *position = new Vector2f(50, 250);
 	int dexterity;
 };

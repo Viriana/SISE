@@ -65,6 +65,7 @@ void Player::decide(Player *opponent)
 				{
 					units[i]->attack(opponent->units[decision]);
 				}
+
 				else
 				{
 					cout << "Ta jednostka jest martwa." << endl;
