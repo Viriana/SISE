@@ -45,7 +45,7 @@ void Player::decide(Player *opponent)
 		//wybieranie atakowanego wroga
 		cout << name + " wybierz wroga jednostke ";
 		cin >> decision;
-		for (int i = 0; i < 2; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			if (units[i]->getIsSelected() == true)
 			{
@@ -67,7 +67,7 @@ void Player::decide(Player *opponent)
 		cout << "Nie mozesz wybrac tej jednostki poniewaz jest martwa. Tracisz ture." << endl;
 	}
 
-	for (int i = 0; i < 2; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
 		units[i]->setIsSelected(false);
 	}

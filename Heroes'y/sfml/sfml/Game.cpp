@@ -9,8 +9,8 @@ level(0)
 	window.setFramerateLimit(30);
 	window.setView(view);
 	window.setKeyRepeatEnabled(false);
-	player1 = new Player(new Knight(), new Sorcerer(), "Orion");
-	player2 = new Player(new Knight(), new Sorcerer(), "Flinch");
+	player1 = new Player(new Knight(), new Sorcerer(), new Healer(), new Archer(), "Player1");
+	player2 = new Player(new Knight(), new Sorcerer(), new Healer(), new Archer(), "Player2");
 	globalTime = 0.0f;
 	level = new Level();
 	level->Game = this;
