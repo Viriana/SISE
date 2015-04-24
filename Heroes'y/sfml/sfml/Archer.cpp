@@ -21,6 +21,7 @@ Archer::Archer()
 	Renderer.SetTexture(*texture);
 	Renderer.Sprite.setTextureRect(IntRect(42, 379, 100, 120)); // left, top, width, height
 	Renderer.Sprite.setScale(1, 1);
+	Renderer.Sprite.setPosition(startPosition);
 }
 
 

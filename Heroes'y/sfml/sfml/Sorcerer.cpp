@@ -13,7 +13,7 @@ Sorcerer::Sorcerer()
 	inteligence = 70;
 	isAlive = true;
 	isSelected = false;
-	setStartPosition(*position);
+	setStartPosition(Vector2f(60, 200));
 	img = new Image();
 	img->loadFromFile("Data\\graphics\\battle.png");
 	img->createMaskFromColor(Color(0, 255, 255, 255));
@@ -22,6 +22,8 @@ Sorcerer::Sorcerer()
 	Renderer.SetTexture(*texture);
 	Renderer.Sprite.setTextureRect(IntRect(42, 905, 100, 120)); // left, top, width, height
 	Renderer.Sprite.setScale(1, 1);
+
+	Renderer.Sprite.setPosition(startPosition);
 }
 
 

@@ -16,7 +16,7 @@ Player::Player(string name, float spriteRotation)
 
 		if (spriteRotation == -1)
 		{
-			units[i]->setPosition(Vector2f(units[i]->GetPosition().x + 800.0f, units[i]->GetPosition().y));
+			units[i]->setPosition(Vector2f(units[i]->GetPosition().x + 700.0f, units[i]->GetPosition().y));
 		}
 	}
 
