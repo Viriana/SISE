@@ -16,6 +16,7 @@ public:
 private:
 	Image *img;
 	Texture *texture;
-	Vector2f *position = new Vector2f(60, 40);
+	Vector2f *position = new Vector2f(60, 400);
+	int inteligence;
 };
 
