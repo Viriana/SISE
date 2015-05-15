@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum Kind {simpleAttack, areaAttack, heal};
 public class UnitScript : MonoBehaviour {
-
+	
 	public int Player;
 	public float life { get; set; }
 	public bool isAlive = true;
-	public int strength { get; set; }
+	public float strength { get; set; }
 	public int range { get; set; }
-	public int armor {get; set;} 
+	public float armor {get; set;} 
 	public int movementSpeed { get; set; }
-
-
-	public void Attack(UnitScript Unit)
-	{
-	}
+	public int x { get; set; }
+	public int y { get; set; }
+	public Kind Tag { get; set; }
+	public virtual float UnitAction(UnitScript Unit){return 0;	}
 
 	// Use this for initialization
 

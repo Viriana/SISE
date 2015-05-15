@@ -6,16 +6,22 @@ public class KnightScript : UnitScript {
 	// Use this for initialization
 	void Start () {
 		life = 7;
-		armor = 5;
+		armor = 2;
 		strength = 10;
 		range = 1;
 		movementSpeed = 1;
+		Tag = Kind.simpleAttack;
+		Vector3 tmpPos = this.transform.position;
+		tmpPos.y += 0.25f;
+		this.transform.position = tmpPos;
 	}
-	public void Attack(UnitScript Unit)
+	public override float UnitAction(UnitScript Unit)
 	{
-		Destroy (Unit.gameObject);
-		//Unit.life -= strength;
-		//print (Unit.life);
+		if((Mathf.Abs(Unit.x - this.x) <=range) && (Mathf.Abs(Unit.y - this.y) <= range))
+		{
+			return strength * Random.Range(0.2f, 1);
+		}
+		return 0;
 	}
 
 }

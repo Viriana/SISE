@@ -9,11 +9,19 @@ public class SorcererScript : UnitScript {
 		armor = 1;
 		strength = 4;
 		range = 4;
-		movementSpeed = 2;
+		movementSpeed = 3;
+		Tag = Kind.areaAttack;
+		Vector3 tmpPos = this.transform.position;
+		tmpPos.y += 0.25f;
+		this.transform.position = tmpPos;
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public override float UnitAction(UnitScript Unit)
+	{
+		if(((Unit.x - this.x) <=range) && ((Unit.y - this.y) <= range))
+		{
+			return strength * Random.Range(0.2f, 1);
+		}
+		return 0;
 	}
 }

@@ -17,9 +17,13 @@ public class FieldScript : MonoBehaviour {
 	}
 	public void CreateHero()
 	{
+
 		Vector3 tmpPos = this.transform.position;
-		tmpPos.x -= 0.2f;
+		//tmpPos.x -= 0.2f;
 		InstHero = (GameObject)Instantiate(hero, tmpPos, hero.gameObject.transform.rotation);
+		UnitScript Usc = InstHero.GetComponent<UnitScript> ();
+		Usc.x = x;
+		Usc.y = y;
 	}
 	// Update is called once per frame
 	void Update () {
