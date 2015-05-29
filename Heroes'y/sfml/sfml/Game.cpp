@@ -155,7 +155,7 @@ void Game::DrawRange(Unit *unit)
 		float distance = sqrt((pow((unit->GetPosition().x - level->fields[i]->GetPosition().x), 2) +
 			pow((unit->GetPosition().y - level->fields[i]->GetPosition().y), 2)));
 
-		if (distance < unit->getRange() * 44.0f)
+		if (distance < unit->getMovementSpeed() * 44.0f)
 		{
 			level->fields[i]->render = true;
 		}

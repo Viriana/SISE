@@ -2,13 +2,13 @@
 
 Knight::Knight()
 {
-	type = "Sorcerer";
+	type = "Knight";
 	maxHealthPoints = 7;
 	currentHealthPoints = 7;
 	armor = 5;
 	strength = 5;
 	range = 1;
-	movementSpeed = 1;
+	movementSpeed = 5;
 	meleeAccuracy = 70;
 	isAlive = true;
 	isSelected = false;
