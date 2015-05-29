@@ -26,16 +26,6 @@ Player::~Player()
 {
 }
 
-Unit* Player::getPlayerUnits(int i)
-{
-	return units[i];
-}
-
-void Player::setPlayerUnits()
-{
-
-}
-
 void Player::decide(Player *opponent, Unit *selectedUnit, Vector2f selectedFieldPos)
 {
 	selectedUnit->setPosition(Vector2f(selectedFieldPos.x - 15, selectedFieldPos.y - 65));

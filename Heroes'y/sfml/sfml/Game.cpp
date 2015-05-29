@@ -50,7 +50,7 @@ void Game::play()
 
 			if (selectedUnitIndex != -1)
 			{
-				cout << "Selected  " << level->players[playerTurn]->getPlayerUnits(selectedUnitIndex)->getType() << endl;
+				cout << "Selected  " << level->players[playerTurn]->units[selectedUnitIndex]->getType() << endl;
 				flag = true;
 			}
 			else
@@ -63,7 +63,7 @@ void Game::play()
 
 			if (selectedUnitIndex != -1)
 			{
-				DrawRange(level->players[playerTurn]->getPlayerUnits(selectedUnitIndex));
+				DrawRange(level->players[playerTurn]->units[selectedUnitIndex]);
 			}
 		}
 
@@ -85,15 +85,15 @@ void Game::play()
 
 		if (selectedFieldPos != Vector2f(0, 0) && selectedUnitIndex != -1 && eventHandler.fieldSelected && eventHandler.unitSelected)
 		{
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < level->players[!playerTurn]->units.size(); i++)
 			{
-				if (level->players[!playerTurn]->getPlayerUnits(i)->getRenderer()->GetBounds().intersects(level->fields[selectedFieldIndex]->getRenderer()->GetBounds()))
+				if (level->players[!playerTurn]->units[i]->getRenderer()->GetBounds().intersects(level->fields[selectedFieldIndex]->getRenderer()->GetBounds()))
 				{
-					level->players[playerTurn]->getPlayerUnits(selectedUnitIndex)->attack(level->players[!playerTurn]->getPlayerUnits(i));
+					level->players[playerTurn]->units[selectedUnitIndex]->attack(level->players[!playerTurn]->units[i]);
 				}
 			}
 
-			level->players[playerTurn]->decide(level->players[!playerTurn], level->players[playerTurn]->getPlayerUnits(selectedUnitIndex), selectedFieldPos);
+			level->players[playerTurn]->decide(level->players[!playerTurn], level->players[playerTurn]->units[selectedUnitIndex], selectedFieldPos);
 
 			for each (Entity *field in level->fields)
 			{
@@ -122,9 +122,9 @@ int Game::selectedUnit(Vector2f mousePosition)
 	int cursorPrecision = 1;
 	FloatRect cursorRect(mousePosition.x, mousePosition.y, cursorPrecision, cursorPrecision);
 
-	for (int j = 0; j < 4; j++)
+	for (int j = 0; j < level->players[playerTurn]->units.size(); j++)
 	{
-		FloatRect unitSpriteRect = level->players[playerTurn]->getPlayerUnits(j)->getRenderer()->GetBounds();
+		FloatRect unitSpriteRect = level->players[playerTurn]->units[j]->getRenderer()->GetBounds();
 
 		if (unitSpriteRect.intersects(cursorRect))
 		{

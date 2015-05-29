@@ -12,11 +12,10 @@ class Player : public Entity
 public:
 	Player(string name, float spriteRotation);
 	~Player();
-	Unit* getPlayerUnits(int i);
-	void setPlayerUnits();
 	void decide(Player *opponent, Unit *selectedUnit, Vector2f selectedFieldPos);
-private:
+
 	vector <Unit*> units;
+private:
 	string name;
 };
 

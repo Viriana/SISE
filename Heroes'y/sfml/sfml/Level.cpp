@@ -36,7 +36,7 @@ void Level::Init()
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			entities.push_back(players[i]->getPlayerUnits(j));
+			entities.push_back(players[i]->units[j]);
 		}
 	}
 
@@ -52,9 +52,11 @@ void Level::Update( float dt )
 			pendingDestroy.push_back(entity);
 		}
 	}
+
 	for (auto& toDestroy : pendingDestroy)
 	{
 		entities.erase(std::remove(entities.begin(), entities.end(), toDestroy), entities.end());
+		players[Game->playerTurn]->units.erase(std::remove(players[Game->playerTurn]->units.begin(), players[Game->playerTurn]->units.end(), toDestroy), players[Game->playerTurn]->units.end());
 		delete toDestroy;
 	}
 	pendingDestroy.clear();

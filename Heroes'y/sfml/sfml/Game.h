@@ -22,6 +22,7 @@ public:
 	int selectedUnit(Vector2f mousePosition);
 	Vector2f selectedField(Vector2f mousePosition, int &index);
 	void DrawRange(Unit *unit);
+	bool playerTurn;
 private:
 	Level* level;
 	Background *background;
@@ -33,5 +34,4 @@ private:
 	int selectedUnitIndex;
 	Vector2f selectedFieldPos;
 	bool flag;
-	bool playerTurn;
 };
