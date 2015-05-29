@@ -21,7 +21,7 @@ Healer::Healer()
 	Renderer.SetTexture(*texture);
 	Renderer.Sprite.setTextureRect(IntRect(42, 2658, 100, 120)); // left, top, width, height
 	Renderer.Sprite.setScale(1, 1);
-	Renderer.Sprite.setPosition(Vector2f(60, 450));
+	Renderer.Sprite.setPosition(Vector2f(75, 440));
 }
 
 

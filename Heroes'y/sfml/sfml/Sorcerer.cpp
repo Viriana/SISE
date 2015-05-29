@@ -22,7 +22,7 @@ Sorcerer::Sorcerer()
 	Renderer.Sprite.setTextureRect(IntRect(42, 905, 100, 120)); // left, top, width, height
 	Renderer.Sprite.setScale(1, 1);
 
-	Renderer.Sprite.setPosition(Vector2f(60, 200));
+	Renderer.Sprite.setPosition(Vector2f(75, 190));
 }
 
 
