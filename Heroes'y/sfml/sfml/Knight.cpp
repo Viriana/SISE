@@ -12,7 +12,6 @@ Knight::Knight()
 	meleeAccuracy = 70;
 	isAlive = true;
 	isSelected = false;
-	setStartPosition(*position);
 	img = new Image();
 	img->loadFromFile("Data\\graphics\\battle.png");
 	img->createMaskFromColor(Color(0, 255, 255, 255));
@@ -21,7 +20,7 @@ Knight::Knight()
 	Renderer.SetTexture(*texture);
 	Renderer.Sprite.setTextureRect(IntRect(42, 729, 100, 120)); // left, top, width, height
 	Renderer.Sprite.setScale(1, 1);
-	Renderer.Sprite.setPosition(startPosition);
+	Renderer.Sprite.setPosition(Vector2f(50, 100));
 }
 Knight::~Knight()
 {
@@ -53,7 +52,7 @@ void Knight::attack(Unit *targetUnit)
 		if (targetUnit->getCurrentHealthPoints() <= 0)
 		{
 			cout << "umarlem!" << endl;
-			targetUnit->setIsAlive(false);
+			targetUnit->isAlive = false;
 		}
 	}
 	else

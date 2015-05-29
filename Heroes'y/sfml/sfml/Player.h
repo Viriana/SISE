@@ -4,6 +4,7 @@
 #include "Knight.h"
 #include "Healer.h"
 #include "Archer.h"
+#include "EventHandler.h"
 using namespace std;
 
 class Player : public Entity
@@ -13,7 +14,7 @@ public:
 	~Player();
 	Unit* getPlayerUnits(int i);
 	void setPlayerUnits();
-	void decide(Player *opponent);
+	void decide(Player *opponent, Unit *selectedUnit, Vector2f selectedFieldPos);
 private:
 	vector <Unit*> units;
 	string name;

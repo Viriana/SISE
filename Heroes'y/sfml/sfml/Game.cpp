@@ -13,6 +13,8 @@ level(0)
 	level = new Level();
 	level->Game = this;
 	level->Init();
+	flag = false;
+	playerTurn = 0;
 }
 
 Game::~Game()
@@ -22,6 +24,8 @@ Game::~Game()
 
 void Game::play()
 {
+	cout << "Player" << playerTurn + 1 << " turn\n\n";
+
 	while (window.isOpen())
 	{
 		eventHandler.readEvents(window);
@@ -36,9 +40,72 @@ void Game::play()
 		}
 		hud.display(view, window);
 		window.display();
+
+
+		int selectedFieldIndex = 0;
 		
-		level->players[0]->decide(level->players[1]);
-		level->players[1]->decide(level->players[0]);
+		if (eventHandler.unitSelected && !flag)
+		{
+			selectedUnitIndex = selectedUnit(eventHandler.mousePosition);
+
+			if (selectedUnitIndex != -1)
+			{
+				cout << "Selected  " << level->players[playerTurn]->getPlayerUnits(selectedUnitIndex)->getType() << endl;
+				flag = true;
+			}
+			else
+			{
+				cout << "Wrong select! Try again" << endl;
+				eventHandler.unitSelected = false;
+				eventHandler.fieldSelected = false;
+				eventHandler.numberOfClicks = 0;
+			}
+
+			if (selectedUnitIndex != -1)
+			{
+				DrawRange(level->players[playerTurn]->getPlayerUnits(selectedUnitIndex));
+			}
+		}
+
+		if (eventHandler.fieldSelected && eventHandler.unitSelected)
+		{
+			selectedFieldPos = selectedField(eventHandler.mousePosition, selectedFieldIndex);
+
+			if (selectedFieldPos != Vector2f(0,0))
+			{
+				//cout << "Selected field x: " << selectedFieldPos.x << ", y:" << selectedFieldPos.y << endl;
+			}
+			else
+			{
+				cout << "Wrong select! Try again" << endl;
+				eventHandler.fieldSelected = false;
+				eventHandler.numberOfClicks = 1;
+			}
+		}
+
+		if (selectedFieldPos != Vector2f(0, 0) && selectedUnitIndex != -1 && eventHandler.fieldSelected && eventHandler.unitSelected)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				if (level->players[!playerTurn]->getPlayerUnits(i)->getRenderer()->GetBounds().intersects(level->fields[selectedFieldIndex]->getRenderer()->GetBounds()))
+				{
+					level->players[playerTurn]->getPlayerUnits(selectedUnitIndex)->attack(level->players[!playerTurn]->getPlayerUnits(i));
+				}
+			}
+
+			level->players[playerTurn]->decide(level->players[!playerTurn], level->players[playerTurn]->getPlayerUnits(selectedUnitIndex), selectedFieldPos);
+
+			for each (Entity *field in level->fields)
+			{
+				field->render = false;
+			}
+
+			eventHandler.fieldSelected = false;
+			eventHandler.unitSelected = false;
+			flag = false;
+			playerTurn = !playerTurn;
+			cout << "Player" << playerTurn + 1 << " Turn\n\n";
+		}
 	}
 }
 
@@ -47,5 +114,50 @@ void Game::Update(float &time)
 	if (level != nullptr)
 	{
 		level->Update(time);
+	}
+}
+
+int Game::selectedUnit(Vector2f mousePosition)
+{
+	int cursorPrecision = 1;
+	FloatRect cursorRect(mousePosition.x, mousePosition.y, cursorPrecision, cursorPrecision);
+
+	for (int j = 0; j < 4; j++)
+	{
+		FloatRect unitSpriteRect = level->players[playerTurn]->getPlayerUnits(j)->getRenderer()->GetBounds();
+
+		if (unitSpriteRect.intersects(cursorRect))
+		{
+			return j;
+		}
+	}
+
+	return -1;
+}
+
+Vector2f Game::selectedField(Vector2f mousePosition, int &index)
+{
+	for (int i = 0; i < level->ColumnsNumber*level->RawsNumber; i++)
+	{
+		if (level->fields[i]->getRenderer()->GetBounds().contains(mousePosition) && level->fields[i]->render)
+		{
+			index = i;
+			return level->fields[i]->GetPosition();
+		}
+	}
+	return Vector2f(0, 0);
+}
+
+void Game::DrawRange(Unit *unit)
+{
+	for (int i = 0; i < level->fields.size(); i++)
+	{
+		float distance = sqrt((pow((unit->GetPosition().x - level->fields[i]->GetPosition().x), 2) +
+			pow((unit->GetPosition().y - level->fields[i]->GetPosition().y), 2)));
+
+		if (distance < unit->getRange() * 44.0f)
+		{
+			level->fields[i]->render = true;
+		}
 	}
 }

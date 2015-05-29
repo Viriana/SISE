@@ -10,12 +10,8 @@ class Unit : public Entity
 public:
 	Unit();
 	virtual ~Unit();
-
-	virtual void setPosition(sf::Vector2f position);
 	virtual void Update();
-	virtual SpriteRenderer* getRenderer();
 	void Move(Vector2f v);
-	Vector2f GetPosition();
 	virtual string getType();
 	virtual int getStrength();
 	virtual int getRange();
@@ -25,19 +21,20 @@ public:
 	virtual int getArmor();
 	virtual void attack(Unit *unit);
 	virtual int getMovementSpeed();
-	virtual Vector2f getStartPosition();
-	virtual void setStartPosition(Vector2f startPosition);
-	virtual void setCurrentPosition(Vector2f currentPosition);
-	virtual Vector2f getCurrentPosition();
 	virtual bool getIsSelected();
 	virtual void setIsSelected(bool isSelected);
-	bool getIsAlive();
-	void setIsAlive(bool isAlive);
 	void Destroy();
-	SpriteRenderer Renderer;
+	vector <float> columns;
+	vector <float> raws;
+
+	int c;
+	int r;
 
 private:
 	bool IsDestroyed;
+
+	int ColumnsNumber;
+	int RawsNumber;
 protected:
 	string type;
 	int strength;
@@ -47,10 +44,5 @@ protected:
 	int currentHealthPoints;
 	int movementSpeed;
 	bool isSelected;
-	bool isAlive;
-	Vector2f currentPosition;
-	Vector2f startPosition;
-
-
 };
 

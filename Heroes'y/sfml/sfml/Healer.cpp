@@ -12,9 +12,6 @@ Healer::Healer()
 	movementSpeed = 2;
 	isAlive = true;
 	inteligence = 70;
-	setStartPosition(*position);
-
-	isAlive = true;
 
 	img = new Image();
 	img->loadFromFile("Data\\graphics\\battle.png");
@@ -24,8 +21,7 @@ Healer::Healer()
 	Renderer.SetTexture(*texture);
 	Renderer.Sprite.setTextureRect(IntRect(42, 2658, 100, 120)); // left, top, width, height
 	Renderer.Sprite.setScale(1, 1);
-
-	Renderer.Sprite.setPosition(startPosition);
+	Renderer.Sprite.setPosition(Vector2f(60, 450));
 }
 
 

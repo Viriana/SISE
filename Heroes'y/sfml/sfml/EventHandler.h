@@ -23,7 +23,10 @@ public:
 	EventHandler();
 	virtual ~EventHandler();
 	void readEvents(Window &window);
-
+	Vector2f mousePosition;
+	bool unitSelected;
+	bool fieldSelected;
+	int numberOfClicks;
 	//Zwroc aktualna kopie stanu klawiszy przypisanych do akcji danego gracza
 	PlayerControls& GetPlayerControls(int playerIndex);
 private:

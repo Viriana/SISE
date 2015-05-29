@@ -4,6 +4,8 @@
 Entity::Entity() :
 IsDestroyed(false)
 {
+	render = true;
+	isAlive = true;
 }
 Entity::~Entity()
 {
@@ -32,6 +34,7 @@ Vector2f Entity::GetPosition()
 {
 	return getRenderer()-> GetPosition();
 }
+
 string Entity::getType()
 {
 	return type;

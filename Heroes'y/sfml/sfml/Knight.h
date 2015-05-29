@@ -16,6 +16,5 @@ public:
 private:
 	Image *img;
 	Texture *texture;
-	Vector2f *position = new Vector2f(50, 150);
 	int meleeAccuracy;
 };

@@ -29,6 +29,9 @@ public:
 	Background* GetBackground();
 	Game* Game;
 	vector <Player*> players;
+	vector <Entity *> fields;
+	int ColumnsNumber;
+	int RawsNumber;
 private:
 	
 	int levelNumber;
@@ -40,5 +43,4 @@ private:
 	Healer* healer;
 	Archer* archer;
 	Field* field;
-	
 };

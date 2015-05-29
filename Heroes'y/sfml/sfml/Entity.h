@@ -22,10 +22,11 @@ public:
 	virtual string getType();
 	bool GetIsDestroyed();
 	void Destroy();
-
+	SpriteRenderer Renderer;
+	bool render;
+	bool isAlive;
 private:
 	bool IsDestroyed;
 protected:
-	SpriteRenderer Renderer;
 	string type;
 };

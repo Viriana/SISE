@@ -16,10 +16,9 @@ Player::Player(string name, float spriteRotation)
 
 		if (spriteRotation == -1)
 		{
-			units[i]->setPosition(Vector2f(units[i]->GetPosition().x + 700.0f, units[i]->GetPosition().y));
+			units[i]->setPosition(Vector2f(units[i]->GetPosition().x + 685.0f, units[i]->GetPosition().y));
 		}
 	}
-
 }
 
 
@@ -37,51 +36,7 @@ void Player::setPlayerUnits()
 
 }
 
-void Player::decide(Player *opponent)
+void Player::decide(Player *opponent, Unit *selectedUnit, Vector2f selectedFieldPos)
 {
-	//wybieranie jednostki
-	int decision;
-	cout << name + " wybierz swoja jednostke ";
-	cin >> decision;
-	if (units[decision]->getIsAlive() == true)
-	{
-		units[decision]->setIsSelected(true);
-		if (decision == 0)
-			cout << "Wybrales rycerza " << units[decision]->getIsSelected() << endl;
-		else if (decision == 1)
-			cout << "Wybrales maga " << +units[decision]->getIsSelected() << endl;
-		else if (decision == 2)
-			cout << "Wybrales uzdrowiciela " << +units[decision]->getIsSelected() << endl;
-		else if (decision == 3)
-			cout << "Wybrales lucznika " << +units[decision]->getIsSelected() << endl;
-		//wybieranie atakowanego wroga
-		cout << name + " wybierz wroga jednostke ";
-		cin >> decision;
-		for (int i = 0; i < 4; ++i)
-		{
-			if (units[i]->getIsSelected() == true)
-			{
-				if (opponent->units[decision]->getIsAlive() == true)
-				{
-					units[i]->attack(opponent->units[decision]);
-				}
-
-				else
-				{
-					cout << "Ta jednostka jest martwa." << endl;
-				}
-			}
-		}
-	}
-
-
-	else
-	{
-		cout << "Nie mozesz wybrac tej jednostki poniewaz jest martwa. Tracisz ture." << endl;
-	}
-
-	for (int i = 0; i < 4; ++i)
-	{
-		units[i]->setIsSelected(false);
-	}
+	selectedUnit->setPosition(Vector2f(selectedFieldPos.x - 15, selectedFieldPos.y - 65));
 }

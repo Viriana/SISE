@@ -4,6 +4,8 @@
 
 Level::Level()
 {
+	ColumnsNumber = 15;
+	RawsNumber = 11;
 }
 Level::~Level()
 {
@@ -15,9 +17,17 @@ void Level::Init()
 	background->setPosition(Vector2f(0, 20));
 	entities.push_back(background);
 
-	field = new Field();
-	field->setPosition(Vector2f(80, 102));
-	entities.push_back(field);
+	for (int i = 0; i < ColumnsNumber; i++)
+	{
+		for (int j = 0; j < RawsNumber; j++)
+		{
+			Field *field = new Field();
+			field->setPosition(Vector2f(44.0f*i - 22.0f*(j % 2) + 80, 42.0f*j + 102));
+			field->render = false;
+			entities.push_back(field);
+			fields.push_back(field);
+		}
+	}
 
 	players.push_back(new Player("Player1", 1));
 	players.push_back(new Player("Player2", -1));
@@ -37,7 +47,7 @@ void Level::Update( float dt )
 	for (auto& entity : entities)
 	{
 		entity->Update();
-		if (entity->GetIsDestroyed())
+		if (entity->GetIsDestroyed() || entity->isAlive == false)
 		{
 			pendingDestroy.push_back(entity);
 		}
@@ -53,8 +63,11 @@ void Level::Render(RenderWindow* window)
 {
 	for (auto& entity : entities)
 	{
-		SpriteRenderer* spriteRenderer = entity->getRenderer();
-		spriteRenderer-> Render(window, 0);
+		if (entity->render)
+		{
+			SpriteRenderer* spriteRenderer = entity->getRenderer();
+			spriteRenderer->Render(window, 0);
+		}
 	}
 }
 

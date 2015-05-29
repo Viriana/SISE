@@ -19,6 +19,9 @@ public:
 	void play();
 	void Update(float &time);
 	EventHandler eventHandler;
+	int selectedUnit(Vector2f mousePosition);
+	Vector2f selectedField(Vector2f mousePosition, int &index);
+	void DrawRange(Unit *unit);
 private:
 	Level* level;
 	Background *background;
@@ -27,4 +30,8 @@ private:
 	Hud hud;
 	Clock clock;
 	float globalTime;
+	int selectedUnitIndex;
+	Vector2f selectedFieldPos;
+	bool flag;
+	bool playerTurn;
 };
