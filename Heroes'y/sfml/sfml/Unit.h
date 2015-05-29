@@ -29,7 +29,7 @@ public:
 
 	int c;
 	int r;
-
+	Entity *field;
 private:
 	bool IsDestroyed;
 

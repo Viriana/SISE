@@ -22,7 +22,9 @@ void Level::Init()
 		for (int j = 0; j < RawsNumber; j++)
 		{
 			Field *field = new Field();
-			field->setPosition(Vector2f(44.0f*i - 22.0f*(j % 2) + 80, 42.0f*j + 102));
+			Vector2f fieldPosition (44.0f*i - 22.0f*(j % 2) + 80, 42.0f*j + 102);
+			field->setPosition(fieldPosition);
+			fieldsPositions.push_back(fieldPosition);
 			field->render = false;
 			entities.push_back(field);
 			fields.push_back(field);
@@ -37,6 +39,43 @@ void Level::Init()
 		for (int j = 0; j < 4; j++)
 		{
 			entities.push_back(players[i]->units[j]);
+
+			if (players[i]->units[j]->getType() == "Knight")
+			{
+				Entity *field1 = new Entity();
+				if (i == 0)
+					field1->setPosition(fieldsPositions[2]);
+				else
+					field1->setPosition(fieldsPositions[156]);
+				players[i]->units[j]->field = field1;
+			}
+			else if (players[i]->units[j]->getType() == "Sorcerer")
+			{
+				Entity *field1 = new Entity();
+				if (i == 0)
+					field1->setPosition(fieldsPositions[4]);
+				else
+					field1->setPosition(fieldsPositions[158]);
+				players[i]->units[j]->field = field1;
+			}
+			else if (players[i]->units[j]->getType() == "Archer")
+			{
+				Entity *field1 = new Entity();
+				if (i == 0)
+					field1->setPosition(fieldsPositions[7]);
+				else
+					field1->setPosition(fieldsPositions[161]);
+				players[i]->units[j]->field = field1;
+			}
+			else if (players[i]->units[j]->getType() == "Healer")
+			{
+				Entity *field1 = new Entity();
+				if (i == 0)
+					field1->setPosition(fieldsPositions[10]);
+				else
+					field1->setPosition(fieldsPositions[164]);
+				players[i]->units[j]->field = field1;
+			}
 		}
 	}
 

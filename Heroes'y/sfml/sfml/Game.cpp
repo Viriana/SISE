@@ -73,6 +73,7 @@ void Game::play()
 
 			if (selectedFieldPos != Vector2f(0,0))
 			{
+				level->players[playerTurn]->units[selectedUnitIndex]->field = level->fields[selectedFieldIndex];
 				//cout << "Selected field x: " << selectedFieldPos.x << ", y:" << selectedFieldPos.y << endl;
 			}
 			else
@@ -91,6 +92,11 @@ void Game::play()
 				{
 					level->players[playerTurn]->units[selectedUnitIndex]->attack(level->players[!playerTurn]->units[i]);
 				}
+			}
+
+			if (playerTurn == 1)
+			{
+				selectedFieldPos.x = selectedFieldPos.x + 70.0f;
 			}
 
 			level->players[playerTurn]->decide(level->players[!playerTurn], level->players[playerTurn]->units[selectedUnitIndex], selectedFieldPos);
@@ -152,8 +158,11 @@ void Game::DrawRange(Unit *unit)
 {
 	for (int i = 0; i < level->fields.size(); i++)
 	{
-		float distance = sqrt((pow((unit->GetPosition().x - level->fields[i]->GetPosition().x), 2) +
-			pow((unit->GetPosition().y - level->fields[i]->GetPosition().y), 2)));
+		float distance = sqrt((pow((unit->field->GetPosition().x - level->fields[i]->GetPosition().x), 2) +
+			pow((unit->field->GetPosition().y - level->fields[i]->GetPosition().y), 2)));
+
+		//float distance = sqrt((pow((unit->GetPosition().x - level->fields[i]->GetPosition().x), 2) +
+			//pow((unit->GetPosition().y - level->fields[i]->GetPosition().y), 2)));
 
 		if (distance < unit->getMovementSpeed() * 44.0f)
 		{
