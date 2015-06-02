@@ -12,8 +12,8 @@ public:
 	virtual ~Healer();
 	void move();
 	virtual void Update() override;
-	void heal();
-	void attack(Unit *targetUnit);
+	void heal(Unit *targetUnit);
+	//void attack(Unit *targetUnit);
 private:
 	Image *img;
 	Texture *texture;
