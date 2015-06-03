@@ -45,11 +45,11 @@ void Archer::attack(Unit *targetUnit)
 	if (accuracyTest <= dexterity)
 	{
 		damage += rand() % 3 + 1;
-		//cout << "sila ciosu: " << damage << endl;
-		message = "sila ciosu: " + to_string(damage) + "\n";
+		//cout << "sila strzalu: " << damage << endl;
+		message = "sila strzalu: " + to_string(damage) + "\n";
 		damage -= targetUnit->getArmor();
 		//cout << "Twoj cios trafil przeciwnika zadajac " << damage << " obrazen" << endl;
-		message = message + "Twoj cios trafil przeciwnika zadajac " + to_string(damage) + " obrazen" + "\n";
+		message = message + "Twoja strzala ranila przeciwnika zadajac " + to_string(damage) + " obrazen" + "\n";
 		if (targetUnit->getCurrentHealthPoints() > 0)
 		{
 			targetUnit->setCurrentHealthPoints(damage);

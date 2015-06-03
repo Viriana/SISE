@@ -16,6 +16,8 @@ view(Vector2f(400.0f, 300.0f), Vector2f(800.0f, 600.0f))
 	flag = false;
 	playerTurn = 0;
 	hud = new Hud(view, window);
+	previousUnitIndex = 0;
+	selectedFieldIndex = 0;
 }
 
 Game::~Game()
@@ -55,9 +57,6 @@ void Game::play()
 		hud->display(playerTurn);
 		window.display();
 
-
-		selectedFieldIndex = 0;
-		previousUnitIndex = 0;
 		
 		if (eventHandler.unitSelected && !flag)
 		{
@@ -170,38 +169,26 @@ void Game::play()
 								}
 							}
 						}
-
-						else
-						{
-
-							if (level->players[playerTurn]->units[selectedUnitIndex]->getType() != "Healer")
-							{
-								hud->WriteGameState("There is already UR unit!");
-								eventHandler.fieldSelected = false;
-								eventHandler.numberOfClicks = 1;
-							}
-
-							else
-							{
-								level->players[playerTurn]->units[selectedUnitIndex]->heal(level->fields[selectedFieldIndex]->unit);
-							}
-						}
-
 					}
 
 				}
 				else
 				{
-					if (level->players[playerTurn]->units[selectedUnitIndex]->getType() != "Healer")
+					if (level->players[playerTurn]->units[selectedUnitIndex]->getType() == "Healer" && fieldHasUnit && !OpponentUnit(level->fields[selectedFieldIndex]->unit))
 					{
-						hud->WriteGameState("Field out of range!");
-						eventHandler.fieldSelected = false;
-						eventHandler.numberOfClicks = 1;
+						level->players[playerTurn]->units[selectedUnitIndex]->heal(level->fields[selectedFieldIndex]->unit);
+					}
+
+					else if (level->players[playerTurn]->units[selectedUnitIndex]->getType() == "Archer" && fieldHasUnit && OpponentUnit(level->fields[selectedFieldIndex]->unit))
+					{
+						level->players[playerTurn]->units[selectedUnitIndex]->attack(level->fields[selectedFieldIndex]->unit);
 					}
 
 					else
 					{
-						level->players[playerTurn]->units[selectedUnitIndex]->heal(level->fields[selectedFieldIndex]->unit);
+						hud->WriteGameState("Field out of range!");
+						eventHandler.fieldSelected = false;
+						eventHandler.numberOfClicks = 1;
 					}
 				}
 			}
