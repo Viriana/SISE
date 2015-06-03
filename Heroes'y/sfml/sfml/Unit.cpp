@@ -61,6 +61,10 @@ void Unit::setIsSelected(bool isSelected)
 	this->isSelected = isSelected;
 }
 
+void Unit::heal(Unit* unit)
+{
+}
+
 int Unit::getArmor()
 {
 	return armor;

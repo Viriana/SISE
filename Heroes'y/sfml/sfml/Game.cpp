@@ -23,6 +23,18 @@ Game::~Game()
 	delete level;
 }
 
+bool Game::OpponentUnit(Unit* unit)
+{
+	for (int i = 0; i < level->players[!playerTurn]->units.size(); i++)
+	{
+		if (unit == level->players[!playerTurn]->units[i])
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void Game::play()
 {
 	//cout << "Player" << playerTurn + 1 << " turn\n\n";
@@ -44,17 +56,21 @@ void Game::play()
 		window.display();
 
 
-		int selectedFieldIndex = 0;
+		selectedFieldIndex = 0;
+		previousUnitIndex = 0;
 		
 		if (eventHandler.unitSelected && !flag)
 		{
+			level->players[!playerTurn]->units[previousUnitIndex]->message = "";
 			selectedUnitIndex = selectedUnit(eventHandler.mousePosition);
+			previousUnitIndex = selectedUnitIndex;
 
 			if (selectedUnitIndex != -1)
 			{
 				//cout << "Selected  " << level->players[playerTurn]->units[selectedUnitIndex]->getType() << endl;
 				hud->WriteGameState("Selected  " + level->players[playerTurn]->units[selectedUnitIndex]->getType());
 				flag = true;
+				DrawRange(level->players[playerTurn]->units[selectedUnitIndex]);
 			}
 			else
 			{
@@ -64,26 +80,135 @@ void Game::play()
 				eventHandler.fieldSelected = false;
 				eventHandler.numberOfClicks = 0;
 			}
-
-			if (selectedUnitIndex != -1)
-			{
-				DrawRange(level->players[playerTurn]->units[selectedUnitIndex]);
-			}
 		}
 
 		if (eventHandler.fieldSelected && eventHandler.unitSelected)
 		{
 			selectedFieldPos = selectedField(eventHandler.mousePosition, selectedFieldIndex);
 
-			if (selectedFieldPos != Vector2f(0,0))
+			for each (Field *field in level->fields)
 			{
-				level->players[playerTurn]->units[selectedUnitIndex]->field = level->fields[selectedFieldIndex];
-				//cout << "Selected field x: " << selectedFieldPos.x << ", y:" << selectedFieldPos.y << endl;
+				if (field == level->players[playerTurn]->units[selectedUnitIndex]->field)
+				{
+					field->hasUnit = false;
+					break;
+				}
+			}
+
+			bool fieldExist = false;
+			if (selectedFieldPos != Vector2f(0, 0))
+			{
+				fieldExist = true;
+			}
+
+			bool fieldHasUnit = false;
+			if (level->fields[selectedFieldIndex]->hasUnit)
+			{
+				fieldHasUnit = true;
+			}
+
+			bool fieldInRange = false;
+			if (level->fields[selectedFieldIndex]->inRange)
+			{
+				fieldInRange = true;
+			}
+
+			if (fieldExist)
+			{
+				if (fieldInRange)
+				{
+					if (!fieldHasUnit)
+					{
+						level->players[playerTurn]->units[selectedUnitIndex]->field = level->fields[selectedFieldIndex];
+						//cout << "Selected field x: " << selectedFieldPos.x << ", y:" << selectedFieldPos.y << endl;
+						level->fields[selectedFieldIndex]->unit = level->players[playerTurn]->units[selectedUnitIndex];
+
+						selectedFieldPos = level->fieldsPositions[selectedFieldIndex];
+
+						if (playerTurn == 1)
+						{
+							selectedFieldPos.x = selectedFieldPos.x + 55.0f;
+						}
+						level->players[playerTurn]->decide(level->players[!playerTurn], level->players[playerTurn]->units[selectedUnitIndex], selectedFieldPos);
+
+						level->fields[selectedFieldIndex]->hasUnit = true;
+					}
+					else
+					{
+						if (OpponentUnit(level->fields[selectedFieldIndex]->unit))
+						{
+							for (int i = 0; i < level->players[!playerTurn]->units.size(); i++)
+							{
+								if (level->fields[selectedFieldIndex] == level->players[!playerTurn]->units[i]->field)
+								{
+
+									if (playerTurn == 0)
+									{
+										selectedFieldIndex -= 11;
+									}
+									else
+									{
+										selectedFieldIndex += 11;
+									}
+
+									level->players[playerTurn]->units[selectedUnitIndex]->field = level->fields[selectedFieldIndex];
+									level->fields[selectedFieldIndex]->unit = level->players[playerTurn]->units[selectedUnitIndex];
+
+									selectedFieldPos = level->fieldsPositions[selectedFieldIndex];
+
+									if (playerTurn == 1)
+									{
+										selectedFieldPos.x = selectedFieldPos.x + 55.0f;
+									}
+									level->players[playerTurn]->decide(level->players[!playerTurn], level->players[playerTurn]->units[selectedUnitIndex], selectedFieldPos);
+
+									level->fields[selectedFieldIndex]->hasUnit = true;
+
+									level->players[playerTurn]->units[selectedUnitIndex]->attack(level->players[!playerTurn]->units[i]);
+
+									break;
+								}
+							}
+						}
+
+						else
+						{
+
+							if (level->players[playerTurn]->units[selectedUnitIndex]->getType() != "Healer")
+							{
+								hud->WriteGameState("There is already UR unit!");
+								eventHandler.fieldSelected = false;
+								eventHandler.numberOfClicks = 1;
+							}
+
+							else
+							{
+								level->players[playerTurn]->units[selectedUnitIndex]->heal(level->fields[selectedFieldIndex]->unit);
+							}
+						}
+
+					}
+
+				}
+				else
+				{
+					if (level->players[playerTurn]->units[selectedUnitIndex]->getType() != "Healer")
+					{
+						hud->WriteGameState("Field out of range!");
+						eventHandler.fieldSelected = false;
+						eventHandler.numberOfClicks = 1;
+					}
+
+					else
+					{
+						level->players[playerTurn]->units[selectedUnitIndex]->heal(level->fields[selectedFieldIndex]->unit);
+					}
+				}
 			}
 			else
 			{
 				//cout << "Wrong select! Try again" << endl;
-				hud->WriteGameState("Wrong select! Try again");
+				hud->WriteGameState("There is no such field!");
 				eventHandler.fieldSelected = false;
 				eventHandler.numberOfClicks = 1;
 			}
@@ -91,24 +216,10 @@ void Game::play()
 
 		if (selectedFieldPos != Vector2f(0, 0) && selectedUnitIndex != -1 && eventHandler.fieldSelected && eventHandler.unitSelected)
 		{
-			for (int i = 0; i < level->players[!playerTurn]->units.size(); i++)
-			{
-				if (level->players[!playerTurn]->units[i]->getRenderer()->GetBounds().intersects(level->fields[selectedFieldIndex]->getRenderer()->GetBounds()))
-				{
-					level->players[playerTurn]->units[selectedUnitIndex]->attack(level->players[!playerTurn]->units[i]);
-				}
-			}
-
-			if (playerTurn == 1)
-			{
-				selectedFieldPos.x = selectedFieldPos.x + 55.0f;
-			}
-
-			level->players[playerTurn]->decide(level->players[!playerTurn], level->players[playerTurn]->units[selectedUnitIndex], selectedFieldPos);
-
 			for each (Entity *field in level->fields)
 			{
 				field->render = false;
+				//field->inRange = false;
 			}
 
 			eventHandler.fieldSelected = false;
@@ -151,7 +262,7 @@ Vector2f Game::selectedField(Vector2f mousePosition, int &index)
 {
 	for (int i = 0; i < level->ColumnsNumber*level->RawsNumber; i++)
 	{
-		if (level->fields[i]->getRenderer()->GetBounds().contains(mousePosition) && level->fields[i]->render)
+		if (level->fields[i]->getRenderer()->GetBounds().contains(mousePosition))
 		{
 			index = i;
 			return level->fields[i]->GetPosition();
@@ -172,7 +283,11 @@ void Game::DrawRange(Unit *unit)
 
 		if (distance < unit->getMovementSpeed() * 44.0f + 12.0f)
 		{
-			level->fields[i]->render = true;
+			if (level->fields[i]->hasUnit == false)
+			{
+				level->fields[i]->render = true;
+			}
+			level->fields[i]->inRange = true;
 		}
 	}
 }

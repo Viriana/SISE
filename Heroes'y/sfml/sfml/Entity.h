@@ -26,6 +26,7 @@ public:
 	bool render;
 	bool isAlive;
 	string message;
+	bool inRange;
 private:
 	bool IsDestroyed;
 protected:

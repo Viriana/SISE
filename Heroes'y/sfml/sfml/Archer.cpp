@@ -33,6 +33,11 @@ void Archer::Update()
 {
 }
 
+void Archer::Heal()
+{
+	
+}
+
 void Archer::attack(Unit *targetUnit)
 {
 	int accuracyTest = rand() % 100 + 1;

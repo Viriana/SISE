@@ -12,7 +12,7 @@ public:
 	virtual ~Healer();
 	void move();
 	virtual void Update() override;
-	void heal(Unit *targetUnit);
+	void heal(Unit *targetUnit) override;
 	//void attack(Unit *targetUnit);
 private:
 	Image *img;

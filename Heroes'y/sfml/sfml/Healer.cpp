@@ -51,7 +51,7 @@ void Healer::heal(Unit* targetUnit)
 		message = "moc uzdrowienia: " + to_string(damage) + "\n";
 		damage -= targetUnit->getArmor();
 		//cout << "Odnowi³es sojusznikowi " << damage << " obrazen" << endl;
-		message = message + "Odnowi³es sojusznikowi " + to_string(damage) + " obrazen" + "\n";
+		message = message + "Odnowiles jednostce " + targetUnit->getType() + " " + to_string(damage) + " obrazen" + "\n";
 		if (targetUnit->getCurrentHealthPoints() > 0)
 		{
 			targetUnit->setCurrentHealthPoints(damage);
