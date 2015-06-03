@@ -49,8 +49,8 @@ void EventHandler::readEvents(Window &window)
 				}
 
 				//cout << "left button released" << endl;
-				mousePosition.x = Mouse::getPosition(window).x;
-				mousePosition.y = Mouse::getPosition(window).y;
+				mousePosition.x = static_cast<float>(Mouse::getPosition(window).x);
+				mousePosition.y = static_cast<float>(Mouse::getPosition(window).y);
 				//cout << "clicked on " << mousePosition.x << ", " << mousePosition.y << endl;
 			}
 		}

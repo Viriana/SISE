@@ -26,9 +26,6 @@ public:
 	void Destroy();
 	vector <float> columns;
 	vector <float> raws;
-
-	int c;
-	int r;
 	Entity *field;
 private:
 	bool IsDestroyed;

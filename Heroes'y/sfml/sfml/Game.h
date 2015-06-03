@@ -28,7 +28,7 @@ private:
 	Background *background;
 	RenderWindow window;
 	View view;
-	Hud hud;
+	Hud* hud;
 	Clock clock;
 	float globalTime;
 	int selectedUnitIndex;

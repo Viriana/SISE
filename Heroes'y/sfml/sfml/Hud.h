@@ -15,9 +15,13 @@ using namespace std;
 class Hud : public Entity
 {
 public:
-	Hud();
+	Hud(View &view, RenderWindow &window);
 	virtual ~Hud();
-	void display(View &view, RenderWindow &window);
+	void display(int PlayerTurn);
+	void WriteLine(string text);
 private:
 	Font hudFont;
+	View *view;
+	RenderWindow *window;
+	Text text1;
 };

@@ -2,9 +2,9 @@
 #include "Game.h"
 
 Game::Game():
+level(nullptr),
 window(VideoMode(800, 600, 32), "Heroes tsy"),
-view(Vector2f(400.0f, 300.0f), Vector2f(800.0f, 600.0f)),
-level(0)
+view(Vector2f(400.0f, 300.0f), Vector2f(800.0f, 600.0f))
 {
 	window.setFramerateLimit(30);
 	window.setView(view);
@@ -15,6 +15,7 @@ level(0)
 	level->Init();
 	flag = false;
 	playerTurn = 0;
+	hud = new Hud(view, window);
 }
 
 Game::~Game()
@@ -24,7 +25,8 @@ Game::~Game()
 
 void Game::play()
 {
-	cout << "Player" << playerTurn + 1 << " turn\n\n";
+	//cout << "Player" << playerTurn + 1 << " turn\n\n";
+	hud->WriteLine("Player" + to_string(playerTurn + 1) + " turn\n\n");
 
 	while (window.isOpen())
 	{
@@ -38,7 +40,7 @@ void Game::play()
 		{
 			level-> Render( &window );
 		}
-		hud.display(view, window);
+		hud->display(playerTurn);
 		window.display();
 
 
@@ -50,12 +52,14 @@ void Game::play()
 
 			if (selectedUnitIndex != -1)
 			{
-				cout << "Selected  " << level->players[playerTurn]->units[selectedUnitIndex]->getType() << endl;
+				//cout << "Selected  " << level->players[playerTurn]->units[selectedUnitIndex]->getType() << endl;
+				hud->WriteLine("Selected  " + level->players[playerTurn]->units[selectedUnitIndex]->getType());
 				flag = true;
 			}
 			else
 			{
-				cout << "Wrong select! Try again" << endl;
+				//cout << "Wrong select! Try again" << endl;
+				hud->WriteLine("Wrong select! Try again");
 				eventHandler.unitSelected = false;
 				eventHandler.fieldSelected = false;
 				eventHandler.numberOfClicks = 0;
@@ -78,7 +82,8 @@ void Game::play()
 			}
 			else
 			{
-				cout << "Wrong select! Try again" << endl;
+				//cout << "Wrong select! Try again" << endl;
+				hud->WriteLine("Wrong select! Try again");
 				eventHandler.fieldSelected = false;
 				eventHandler.numberOfClicks = 1;
 			}
@@ -110,7 +115,8 @@ void Game::play()
 			eventHandler.unitSelected = false;
 			flag = false;
 			playerTurn = !playerTurn;
-			cout << "Player" << playerTurn + 1 << " Turn\n\n";
+			//cout << "Player" << playerTurn + 1 << " Turn\n\n";
+			hud->WriteLine("Player" + to_string(playerTurn + 1) + " turn\n\n");
 		}
 	}
 }
@@ -126,7 +132,7 @@ void Game::Update(float &time)
 int Game::selectedUnit(Vector2f mousePosition)
 {
 	int cursorPrecision = 1;
-	FloatRect cursorRect(mousePosition.x, mousePosition.y, cursorPrecision, cursorPrecision);
+	FloatRect cursorRect(mousePosition.x, mousePosition.y, static_cast<float>(cursorPrecision), static_cast<float>(cursorPrecision));
 
 	for (int j = 0; j < level->players[playerTurn]->units.size(); j++)
 	{
