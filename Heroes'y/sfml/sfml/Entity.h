@@ -25,6 +25,7 @@ public:
 	SpriteRenderer Renderer;
 	bool render;
 	bool isAlive;
+	string message;
 private:
 	bool IsDestroyed;
 protected:

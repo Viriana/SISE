@@ -21,6 +21,7 @@ void Hud::display(int PlayerTurn)
 
 	window->draw(text);
 	window->draw(text1);
+	window->draw(text2);
 
 	if (PlayerTurn == 0)
 	{
@@ -51,9 +52,21 @@ void Hud::WriteLine(string text)
 	Text temp(text, hudFont);
 	text1 = temp;
 
-	text1.setPosition(view->getCenter().x - 290, view->getCenter().y + 280);
-	text1.setCharacterSize(15);
+	text1.setPosition(view->getCenter().x, view->getCenter().y + 270);
+	text1.setCharacterSize(7);
 	text1.setColor(Color::White);
 
 	window->draw(text1);
+}
+
+void Hud::WriteGameState(string text)
+{
+	Text temp(text, hudFont);
+	text2 = temp;
+
+	text2.setPosition(0, view->getCenter().y + 280);
+	text2.setCharacterSize(15);
+	text2.setColor(Color::White);
+
+	window->draw(text2);
 }

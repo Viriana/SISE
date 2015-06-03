@@ -108,6 +108,7 @@ void Level::Render(RenderWindow* window)
 		{
 			SpriteRenderer* spriteRenderer = entity->getRenderer();
 			spriteRenderer->Render(window, 0);
+			Game->hud->WriteLine(entity->message);
 		}
 	}
 }

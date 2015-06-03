@@ -47,9 +47,11 @@ void Healer::heal(Unit* targetUnit)
 	if (inteligenceTest <= inteligence)
 	{
 		damage += rand() % 3 + 1;
-		cout << "moc uzdrowienia: " << damage << endl;
+		//cout << "moc uzdrowienia: " << damage << endl;
+		message = "moc uzdrowienia: " + to_string(damage) + "\n";
 		damage -= targetUnit->getArmor();
-		cout << "Odnowi³es sojusznikowi " << damage << " obrazen" << endl;
+		//cout << "Odnowi³es sojusznikowi " << damage << " obrazen" << endl;
+		message = message + "Odnowi³es sojusznikowi " + to_string(damage) + " obrazen" + "\n";
 		if (targetUnit->getCurrentHealthPoints() > 0)
 		{
 			targetUnit->setCurrentHealthPoints(damage);

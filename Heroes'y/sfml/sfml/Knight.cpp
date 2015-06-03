@@ -42,19 +42,25 @@ void Knight::attack(Unit *targetUnit)
 	if (accuracyTest <= meleeAccuracy)
 	{
 		damage += rand() % 3 + 1;
-		cout << "sila ciosu: " << damage << endl;
+		//cout << "sila ciosu: " << damage << endl;
+		message = "sila ciosu: " + to_string(damage) + "\n";
 		damage -= targetUnit->getArmor();
-		cout << "Twoj cios trafil przeciwnika zadajac " << damage << " obrazen" << endl;
+		//cout << "Twoj cios trafil przeciwnika zadajac " << damage << " obrazen" << endl;
+		message = message + "Twoj cios trafil przeciwnika zadajac " + to_string(damage) + " obrazen" + "\n";
 		if (targetUnit->getCurrentHealthPoints() > 0)
 		{
 			targetUnit->setCurrentHealthPoints(damage);
 		}
 		if (targetUnit->getCurrentHealthPoints() <= 0)
 		{
-			cout << "umarlem!" << endl;
+			//cout << "umarlem!" << endl;
+			message = message + "umarlem!" + "\n";
 			targetUnit->isAlive = false;
 		}
 	}
 	else
-		cout << "Chybiles" << endl;
+	{
+		//cout << "Chybiles" << endl;
+		message = message + "Chybiles" + "\n";
+	}
 }

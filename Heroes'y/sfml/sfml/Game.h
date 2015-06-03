@@ -23,12 +23,12 @@ public:
 	Vector2f selectedField(Vector2f mousePosition, int &index);
 	void DrawRange(Unit *unit);
 	bool playerTurn;
+	Hud* hud;
 private:
 	Level* level;
 	Background *background;
 	RenderWindow window;
 	View view;
-	Hud* hud;
 	Clock clock;
 	float globalTime;
 	int selectedUnitIndex;

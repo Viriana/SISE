@@ -19,9 +19,11 @@ public:
 	virtual ~Hud();
 	void display(int PlayerTurn);
 	void WriteLine(string text);
+	void WriteGameState(string text);
 private:
 	Font hudFont;
 	View *view;
 	RenderWindow *window;
 	Text text1;
+	Text text2;
 };

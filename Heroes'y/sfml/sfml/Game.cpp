@@ -26,7 +26,7 @@ Game::~Game()
 void Game::play()
 {
 	//cout << "Player" << playerTurn + 1 << " turn\n\n";
-	hud->WriteLine("Player" + to_string(playerTurn + 1) + " turn\n\n");
+	hud->WriteGameState("Player" + to_string(playerTurn + 1) + " turn\n\n");
 
 	while (window.isOpen())
 	{
@@ -53,13 +53,13 @@ void Game::play()
 			if (selectedUnitIndex != -1)
 			{
 				//cout << "Selected  " << level->players[playerTurn]->units[selectedUnitIndex]->getType() << endl;
-				hud->WriteLine("Selected  " + level->players[playerTurn]->units[selectedUnitIndex]->getType());
+				hud->WriteGameState("Selected  " + level->players[playerTurn]->units[selectedUnitIndex]->getType());
 				flag = true;
 			}
 			else
 			{
 				//cout << "Wrong select! Try again" << endl;
-				hud->WriteLine("Wrong select! Try again");
+				hud->WriteGameState("Wrong select! Try again");
 				eventHandler.unitSelected = false;
 				eventHandler.fieldSelected = false;
 				eventHandler.numberOfClicks = 0;
@@ -83,7 +83,7 @@ void Game::play()
 			else
 			{
 				//cout << "Wrong select! Try again" << endl;
-				hud->WriteLine("Wrong select! Try again");
+				hud->WriteGameState("Wrong select! Try again");
 				eventHandler.fieldSelected = false;
 				eventHandler.numberOfClicks = 1;
 			}
@@ -116,7 +116,7 @@ void Game::play()
 			flag = false;
 			playerTurn = !playerTurn;
 			//cout << "Player" << playerTurn + 1 << " Turn\n\n";
-			hud->WriteLine("Player" + to_string(playerTurn + 1) + " turn\n\n");
+			hud->WriteGameState("Player" + to_string(playerTurn + 1) + " turn\n\n");
 		}
 	}
 }
