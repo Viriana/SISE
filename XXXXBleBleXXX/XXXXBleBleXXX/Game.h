@@ -23,6 +23,7 @@ public:
 	Vector2f selectedField(Vector2f mousePosition, int &index);
 	void DrawRange(Unit *unit);
 	bool playerTurn;
+	void GetDecisionInfo(string decision, string& x, string& y, string& idexOfCharacter);
 private:
 	Level* level;
 	Background *background;
@@ -34,4 +35,9 @@ private:
 	int selectedUnitIndex;
 	Vector2f selectedFieldPos;
 	bool flag;
+	//do odczytywania wiadomosci z clipsa
+	string decisionInfo;
+	string idexOfCharacter;
+	string positionY;
+	string positionX;
 };
