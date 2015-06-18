@@ -22,6 +22,7 @@
     <ProjectGuid>{0DED3A6A-11BC-4AC5-8AFE-98AB3587D69A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>XXXXBleBleXXX</RootNamespace>
+    <ProjectName>ApplicationClips</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

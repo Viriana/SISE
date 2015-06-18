@@ -13,7 +13,7 @@ using std::string;
 #else
 extern "C"
   {
-   #include "C:\Users\Ania\Documents\SISE\XXXXBleBleXXX\Clipse\Projects\Source\CLIPS\clips.h"
+   #include "C:\Users\Ania\Documents\SISE\AplicationClips\Clipse\Projects\Source\CLIPS\clips.h"
   }
 #endif
 #else
