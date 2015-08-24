@@ -4,8 +4,6 @@
 
 Unit::Unit()
 {
-	c = 0;
-	r = 0;
 }
 
 
@@ -61,6 +59,10 @@ bool Unit::getIsSelected()
 void Unit::setIsSelected(bool isSelected)
 {
 	this->isSelected = isSelected;
+}
+
+void Unit::heal(Unit* unit)
+{
 }
 
 int Unit::getArmor()

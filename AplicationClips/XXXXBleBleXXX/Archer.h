@@ -12,6 +12,7 @@ public:
 	virtual ~Archer();
 	void move();
 	virtual void Update() override;
+	void Heal();
 	void attack(Unit *targetUnit);
 private:
 	Image *img;

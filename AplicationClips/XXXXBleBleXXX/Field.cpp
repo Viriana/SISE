@@ -3,6 +3,7 @@
 Field::Field()
 {
 	type = "Field";
+	hasUnit = false;
 
 	img = new Image();
 	img->loadFromFile("Data\\graphics\\field.png");

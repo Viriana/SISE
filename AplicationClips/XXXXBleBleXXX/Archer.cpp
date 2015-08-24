@@ -33,6 +33,11 @@ void Archer::Update()
 {
 }
 
+void Archer::Heal()
+{
+	
+}
+
 void Archer::attack(Unit *targetUnit)
 {
 	int accuracyTest = rand() % 100 + 1;
@@ -40,19 +45,25 @@ void Archer::attack(Unit *targetUnit)
 	if (accuracyTest <= dexterity)
 	{
 		damage += rand() % 3 + 1;
-		cout << "sila ciosu: " << damage << endl;
+		//cout << "sila strzalu: " << damage << endl;
+		message = "sila strzalu: " + to_string(damage) + "\n";
 		damage -= targetUnit->getArmor();
-		cout << "Twoj cios trafil przeciwnika zadajac " << damage << " obrazen" << endl;
+		//cout << "Twoj cios trafil przeciwnika zadajac " << damage << " obrazen" << endl;
+		message = message + "Twoja strzala ranila przeciwnika zadajac " + to_string(damage) + " obrazen" + "\n";
 		if (targetUnit->getCurrentHealthPoints() > 0)
 		{
 			targetUnit->setCurrentHealthPoints(damage);
 		}
 		if (targetUnit->getCurrentHealthPoints() <= 0)
 		{
-			cout << "umarlem!" << endl;
+			//cout << "umarlem!" << endl;
+			message = message + "umarlem!" + "\n";
 			targetUnit->isAlive = false;
 		}
 	}
 	else
-		cout << "Chybiles" << endl;
+	{
+		//cout << "Chybiles" << endl;
+		message = message + "Chybiles" + "\n";
+	}
 }

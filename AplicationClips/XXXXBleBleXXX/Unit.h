@@ -24,11 +24,9 @@ public:
 	virtual bool getIsSelected();
 	virtual void setIsSelected(bool isSelected);
 	void Destroy();
+	virtual void heal(Unit* unit);
 	vector <float> columns;
 	vector <float> raws;
-
-	int c;
-	int r;
 	Entity *field;
 private:
 	bool IsDestroyed;

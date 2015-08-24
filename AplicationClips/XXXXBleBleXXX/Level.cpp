@@ -44,37 +44,74 @@ void Level::Init()
 			{
 				Entity *field1 = new Entity();
 				if (i == 0)
-					field1->setPosition(fieldsPositions[2]);
+				{
+					field1->setPosition(fieldsPositions[1]);
+					fields[1]->unit = players[i]->units[j];
+				}
 				else
-					field1->setPosition(fieldsPositions[156]);
+				{
+					field1->setPosition(fieldsPositions[155]);
+					fields[155]->unit = players[i]->units[j];
+				}
+
 				players[i]->units[j]->field = field1;
+				fields[1]->hasUnit = true;
+				fields[155]->hasUnit = true;
 			}
 			else if (players[i]->units[j]->getType() == "Sorcerer")
 			{
 				Entity *field1 = new Entity();
+
 				if (i == 0)
+				{
 					field1->setPosition(fieldsPositions[4]);
+					fields[4]->unit = players[i]->units[j];
+				}
 				else
+				{
 					field1->setPosition(fieldsPositions[158]);
+					fields[158]->unit = players[i]->units[j];
+				}
+					
 				players[i]->units[j]->field = field1;
+				fields[4]->hasUnit = true;
+				fields[158]->hasUnit = true;
 			}
 			else if (players[i]->units[j]->getType() == "Archer")
 			{
 				Entity *field1 = new Entity();
 				if (i == 0)
+				{
 					field1->setPosition(fieldsPositions[7]);
+					fields[7]->unit = players[i]->units[j];
+				}
 				else
+				{
 					field1->setPosition(fieldsPositions[161]);
+					fields[161]->unit = players[i]->units[j];
+				}
+					
 				players[i]->units[j]->field = field1;
+				fields[7]->hasUnit = true;
+				fields[161]->hasUnit = true;
 			}
 			else if (players[i]->units[j]->getType() == "Healer")
 			{
 				Entity *field1 = new Entity();
 				if (i == 0)
+				{
 					field1->setPosition(fieldsPositions[10]);
+					fields[10]->unit = players[i]->units[j];
+				}
 				else
+				{
 					field1->setPosition(fieldsPositions[164]);
+					fields[164]->unit = players[i]->units[j];
+				}
+
 				players[i]->units[j]->field = field1;
+				fields[10]->hasUnit = true;
+				fields[164]->hasUnit = true;
 			}
 		}
 	}
@@ -108,6 +145,7 @@ void Level::Render(RenderWindow* window)
 		{
 			SpriteRenderer* spriteRenderer = entity->getRenderer();
 			spriteRenderer->Render(window, 0);
+			Game->hud->WriteLine(entity->message);
 		}
 	}
 }

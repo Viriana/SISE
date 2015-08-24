@@ -29,7 +29,7 @@ public:
 	Background* GetBackground();
 	Game* Game;
 	vector <Player*> players;
-	vector <Entity *> fields;
+	vector <Field *> fields;
 	vector <Vector2f> fieldsPositions;
 	int ColumnsNumber;
 	int RawsNumber;

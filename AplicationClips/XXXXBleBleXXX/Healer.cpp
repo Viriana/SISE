@@ -11,6 +11,7 @@ Healer::Healer()
 	range = 4;
 	movementSpeed = 2;
 	isAlive = true;
+	isSelected = false;
 	inteligence = 70;
 
 	img = new Image();
@@ -39,11 +40,33 @@ void Healer::Update()
 {
 }
 
-void Healer::heal()
+void Healer::heal(Unit* targetUnit)
 {
+	int inteligenceTest = rand() % 100 + 1;
+	int damage = strength;
+	if (inteligenceTest <= inteligence)
+	{
+		damage += rand() % 3 + 1;
+		//cout << "moc uzdrowienia: " << damage << endl;
+		message = "moc uzdrowienia: " + to_string(damage) + "\n";
+		damage -= targetUnit->getArmor();
+		//cout << "Odnowi³es sojusznikowi " << damage << " obrazen" << endl;
+		message = message + "Odnowiles jednostce " + targetUnit->getType() + " " + to_string(damage) + " obrazen" + "\n";
+		if (targetUnit->getCurrentHealthPoints() > 0)
+		{
+			targetUnit->setCurrentHealthPoints(damage);
+		}
+		/*if (targetUnit->getCurrentHealthPoints() <= 0)
+		{
+			cout << "umarlem!" << endl;
+			targetUnit->isAlive = false;
+		}*/
+	}
+	/*else
+		cout << "Chybiles" << endl;*/
 }
 
-void Healer::attack(Unit* targetUnit)
-{
-
-}
+//void Healer::attack(Unit* targetUnit)
+//{
+//
+//}
