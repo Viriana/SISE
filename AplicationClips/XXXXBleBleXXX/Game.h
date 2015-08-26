@@ -10,6 +10,8 @@
 #include "Background.h"
 #include "Router.h"
 
+#include <windows.h>
+
 using namespace sf;
 class Level;
 class Game

@@ -9,8 +9,6 @@ int main(int argc, TCHAR *argv[])
 	CLIPSCPPEnv theEnv;
 	myCLIPSRouter theRouter;
 
-	cout << "Nacisnij enter, aby kontynuowac." << endl;
-
 	theEnv.AddRouter("myRouter", 100, &theRouter);
 	theEnv.Load("adam.clp");
 
@@ -18,6 +16,8 @@ int main(int argc, TCHAR *argv[])
 	game->play(theRouter, theEnv);
 
 	delete game;
+
+	system("pause");
 
 	return 0;
 }

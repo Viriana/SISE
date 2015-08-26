@@ -4,6 +4,7 @@ Field::Field()
 {
 	type = "Field";
 	hasUnit = false;
+	inRange = false;
 
 	img = new Image();
 	img->loadFromFile("Data\\graphics\\field.png");

@@ -74,9 +74,6 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 				selectedUnitIndex = selectedUnit(eventHandler.mousePosition);
 			else
 			{
-				Time delayTime = milliseconds(2000);
-				sleep(delayTime);
-
 				theEnv.Reset();
 				theEnv.Run(-1);
 
@@ -92,6 +89,9 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 
 				GetDecisionInfo(decisionInfo, positionX, positionY, idexOfCharacter);
 				selectedUnitIndex = atoi(idexOfCharacter.c_str());
+
+				Time delayTime = milliseconds(2000);
+				sleep(delayTime);
 			}
 			previousUnitIndex = selectedUnitIndex;
 
@@ -110,8 +110,6 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 				eventHandler.fieldSelected = false;
 				eventHandler.numberOfClicks = 0;
 				flag = false;
-				previousUnitIndex = 0;
-				selectedFieldIndex = 0;
 			}
 		}
 
