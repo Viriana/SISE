@@ -18,7 +18,7 @@ view(Vector2f(400.0f, 300.0f), Vector2f(800.0f, 600.0f))
 	hud = new Hud(view, window);
 	previousUnitIndex = 0;
 	selectedFieldIndex = 0;
-	decisionInfo = "0/476;186";
+	decisionInfo = "";
 	positionX = "";
 	positionY = "";
 	idexOfCharacter = "";
@@ -46,6 +46,8 @@ void Game::play()
 	//cout << "Player" << playerTurn + 1 << " turn\n\n";
 	hud->WriteGameState("Player" + to_string(playerTurn + 1) + " turn\n\n");
 
+	cout << decisionInfo << endl;
+
 	while (window.isOpen())
 	{
 		eventHandler.readEvents(window);
@@ -69,6 +71,8 @@ void Game::play()
 				selectedUnitIndex = selectedUnit(eventHandler.mousePosition);
 			else
 			{
+				Time delayTime = milliseconds(2000);
+				sleep(delayTime);
 				GetDecisionInfo(decisionInfo, positionX, positionY, idexOfCharacter);
 				selectedUnitIndex = atoi(idexOfCharacter.c_str());
 			}
@@ -302,4 +306,9 @@ void Game::GetDecisionInfo(string decision, string& x, string& y, string& idexOf
 	size_t positionOfSemicolon = positionXY.find(";");
 	y = positionXY.substr(positionOfSemicolon + 1);
 	x = positionXY.substr(0, positionOfSemicolon);
+}
+
+void Game::setDecisionInfo(string newDecision)
+{
+	this->decisionInfo = newDecision;
 }

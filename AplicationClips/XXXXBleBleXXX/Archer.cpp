@@ -56,8 +56,8 @@ void Archer::attack(Unit *targetUnit)
 		}
 		if (targetUnit->getCurrentHealthPoints() <= 0)
 		{
-			//cout << "umarlem!" << endl;
-			message = message + "umarlem!" + "\n";
+			//cout << "przeciwnik zginal!" << endl;
+			message = message + "przeciwnik zginal!" + "\n";
 			targetUnit->isAlive = false;
 		}
 	}

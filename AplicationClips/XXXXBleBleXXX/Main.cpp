@@ -1,28 +1,60 @@
 #include "game.h"
 #include <tchar.h>
-#include "C:\Users\Ania\Documents\Visual Studio 2013\Projects\AplikacjaZClipsem\AplikacjaZClipsem\Projects\Source\Integration\clipscpp.h"
-#pragma comment(lib, "C:\\Users\\Ania\\Documents\\Visual Studio 2013\\Projects\\AplikacjaZClipsem\\AplikacjaZClipsem\\Projects\\Libraries\\Microsoft\\CLIPSCPP.lib")
+#include <sstream>
+#include "..\Clipse\Projects\Source\Integration\clipscpp.h"
+#pragma comment(lib, "..\\..\\Clipse\\Projects\\Libraries\\Microsoft\\CLIPSCPP.lib")
+
+using namespace CLIPS;
+
+static char *m_lName = "decision";
+
+class myCLIPSRouter : public CLIPSCPPRouter
+{
+public:
+	virtual int Query(CLIPSCPPEnv *, const char *);
+	virtual int Print(CLIPSCPPEnv *, const char *, const char *);
+	string str = "";
+};
+
+int MyQueryFunction(void* env, char* logicalname)
+{
+	if (strcmp(logicalname, "output1") == 0)
+		return 1;
+	return 0;
+}
 
 int main(int argc, TCHAR *argv[])
 {
-	CLIPS::CLIPSCPPEnv theEnv;
+	Game *game = new Game();
+	CLIPSCPPEnv theEnv;
+	myCLIPSRouter theRouter;
+	
+	cout << "Nacisnij enter, aby kontynuowac." << endl;
 
-	// For load to work, the CLIPS file must be in the
-	// the same directory as the executable, otherwise
-	// the full path should be specified.
-	// theEnv.Load("hello.clp");
-
-	theEnv.Build("(defrule hello"
-		"   =>"
-		"  (printout t \"Hello World.\" crlf)"
-		"  (printout t \"Hit return to end.\" crlf)"
-		"  )");
+	theEnv.AddRouter("myRouter", 100, &theRouter);
+	theEnv.Load("adam.clp");
 	theEnv.Reset();
 	theEnv.Run(-1);
-	Game *game = new Game();
+
+	game->setDecisionInfo(theRouter.str);
 	game->play();
 
 	delete game;
 
-    return 0;
+	return 0;
+}
+
+int myCLIPSRouter::Query(CLIPSCPPEnv *cEnv, const char *logicalName)
+{
+	int n = strcmp(logicalName, m_lName);
+	if (strcmp(logicalName, m_lName) == 0)
+		return 1;
+	else
+		return 0;
+}
+
+int myCLIPSRouter::Print(CLIPSCPPEnv *cEnv, const char *logicalName, const char *output)
+{
+	str = output;
+	return 1;
 }

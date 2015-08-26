@@ -29,6 +29,7 @@ public:
 	Hud* hud;
 	int selectedUnitIndex;
 	void GetDecisionInfo(string decision, string& x, string& y, string& idexOfCharacter);
+	void setDecisionInfo(string newDecision);
 private:
 	Level* level;
 	Background *background;
