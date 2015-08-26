@@ -1,5 +1,8 @@
 #include "Level.h"
 #include "Game.h"
+#include "clips.h"
+#include <ctime>
+#include <sstream>
 
 Game::Game():
 level(nullptr),
@@ -41,12 +44,12 @@ bool Game::OpponentUnit(Unit* unit)
 	return false;
 }
 
-void Game::play()
+void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 {
 	//cout << "Player" << playerTurn + 1 << " turn\n\n";
 	hud->WriteGameState("Player" + to_string(playerTurn + 1) + " turn\n\n");
 
-	cout << decisionInfo << endl;
+	srand(time(NULL));
 
 	while (window.isOpen())
 	{
@@ -73,6 +76,20 @@ void Game::play()
 			{
 				Time delayTime = milliseconds(2000);
 				sleep(delayTime);
+
+				theEnv.Reset();
+				theEnv.Run(-1);
+
+				ostringstream ss;
+				ss << "(printout decision \"0/476;186\")(readline))";
+				string str = ss.str();
+
+				theEnv.Eval(strdup(str.c_str()));
+
+				this->decisionInfo = theRouter.str;
+
+				cout << decisionInfo << endl;
+
 				GetDecisionInfo(decisionInfo, positionX, positionY, idexOfCharacter);
 				selectedUnitIndex = atoi(idexOfCharacter.c_str());
 			}
@@ -92,6 +109,9 @@ void Game::play()
 				eventHandler.unitSelected = false;
 				eventHandler.fieldSelected = false;
 				eventHandler.numberOfClicks = 0;
+				flag = false;
+				previousUnitIndex = 0;
+				selectedFieldIndex = 0;
 			}
 		}
 

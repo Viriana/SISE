@@ -6,5 +6,5 @@
  (defrule canPrint
  (print (value true) )
  =>
-(printout decision "0/476;186")
+(printout decision "")
 	  (readline))

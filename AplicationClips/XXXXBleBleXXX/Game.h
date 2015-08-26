@@ -8,6 +8,7 @@
 #include "Tile.h"
 #include "SpriteRenderer.h"
 #include "Background.h"
+#include "Router.h"
 
 using namespace sf;
 class Level;
@@ -17,7 +18,7 @@ public:
 	Game();
 	virtual ~Game();
 	bool OpponentUnit(Unit* unit);
-	void play();
+	void play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv);
 	void Update(float &time);
 	EventHandler eventHandler;
 	int selectedFieldIndex;

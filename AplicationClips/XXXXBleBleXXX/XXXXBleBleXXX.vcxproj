@@ -66,16 +66,19 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\SFML-2.1\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\trunk\AplicationClips\XXXXBleBleXXX;C:\SFML-2.1\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\trunk\AplicationClips\Clipse\Projects\Libraries\Microsoft;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\trunk\AplicationClips\Clipse\Projects\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,6 +91,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -96,21 +100,23 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <TargetMachine>MachineX64</TargetMachine>
+      <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;CLIPSCPP.lib;CLIPSDynamic32.lib;CLIPSDynamic64.lib;CLIPSJNI64.lib;CLIPSJNI32.lib;CLIPSStatic32.lib;CLIPSStatic64.lib;CLIPSWrapper32.lib;CLIPSWrapper64.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Ania\Documents\Visual Studio 2013\Projects\XXXXBleBleXXX\Clipse\Projects\Libraries;C:\SFML-2.1\lib;C:\Users\Ania\Documents\Visual Studio 2013\Projects\XXXXBleBleXXX\Clipse\Projects\Libraries\Microsoft;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Source\Integration;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Source\CLIPS;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Libraries;C:\SFML-2.1\lib;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Libraries\Microsoft;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB[:libc.lib];/NODEFAULTLIB[:libcmt.lib];/NODEFAULTLIB[:msvcrt.lib];/NODEFAULTLIB[:libcd.lib];/NODEFAULTLIB[:libcmtd.lib];%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Source\Integration;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Source\CLIPS;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Libraries;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Libraries\Microsoft;C:\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,6 +148,7 @@
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Router.h" />
     <ClInclude Include="Sorcerer.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="stdafx.h" />
@@ -163,6 +170,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Router.cpp" />
     <ClCompile Include="Sorcerer.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -173,6 +181,7 @@
     <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="adam.clp" />
     <None Include="DLL\libsndfile-1.dll" />
     <None Include="DLL\openal32.dll" />
     <None Include="DLL\sfml-audio-2.dll" />
