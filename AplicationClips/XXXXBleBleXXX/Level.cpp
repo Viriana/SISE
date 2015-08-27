@@ -6,6 +6,7 @@ Level::Level()
 {
 	ColumnsNumber = 15;
 	RawsNumber = 11;
+	levelNumber = 1;
 }
 Level::~Level()
 {

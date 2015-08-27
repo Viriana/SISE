@@ -19,12 +19,13 @@ view(Vector2f(400.0f, 300.0f), Vector2f(800.0f, 600.0f))
 	flag = false;
 	playerTurn = 0;
 	hud = new Hud(view, window);
-	previousUnitIndex = 0;
-	selectedFieldIndex = 0;
+	selectedFieldPos = Vector2f(0.0f,0.0f);
+	selectedUnitIndex = -1;
+	previousUnitIndex = -1;
+	selectedFieldIndex = -1;
 	decisionInfo = "";
-	positionX = "";
-	positionY = "";
-	idexOfCharacter = "";
+	selectedUnitIndexStr = "";
+	selectedFieldIndexStr = "";
 }
 
 Game::~Game()
@@ -46,7 +47,7 @@ bool Game::OpponentUnit(Unit* unit)
 
 void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 {
-	//cout << "Player" << playerTurn + 1 << " turn\n\n";
+	cout << "Player" << playerTurn + 1 << " turn\n\n";
 	hud->WriteGameState("Player" + to_string(playerTurn + 1) + " turn\n\n");
 
 	srand(time(NULL));
@@ -69,31 +70,26 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 		
 		if ((eventHandler.unitSelected && !flag) || playerTurn == 1)
 		{
-			level->players[!playerTurn]->units[previousUnitIndex]->message = "";
+			
 			if (playerTurn == 0)
 				selectedUnitIndex = selectedUnit(eventHandler.mousePosition);
 			else
 			{
-				theEnv.Reset();
-				theEnv.Run(-1);
-
-				ostringstream ss;
-				ss << "(printout decision \"0/476;186\")(readline))";
-				string str = ss.str();
-
-				theEnv.Eval(strdup(str.c_str()));
-
-				this->decisionInfo = theRouter.str;
-
-				cout << decisionInfo << endl;
-
-				GetDecisionInfo(decisionInfo, positionX, positionY, idexOfCharacter);
-				selectedUnitIndex = atoi(idexOfCharacter.c_str());
+				UpdateClipsFacts(theRouter, theEnv);
+				GetDecisionInfo(decisionInfo, selectedFieldIndexStr, selectedUnitIndexStr);
 
 				Time delayTime = milliseconds(2000);
 				sleep(delayTime);
+
+				selectedUnitIndex = atoi(selectedUnitIndexStr.c_str());
+				selectedFieldIndex = atoi(selectedFieldIndexStr.c_str());
+
+				cout << "selectedUnitIndex = " << selectedUnitIndex << "; " << "selectedFieldIndex = " << selectedFieldIndex << endl;
 			}
 			previousUnitIndex = selectedUnitIndex;
+
+			if (previousUnitIndex != -1)
+				level->players[!playerTurn]->units[previousUnitIndex]->message = "";
 
 			if (selectedUnitIndex != -1)
 			{
@@ -116,10 +112,13 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 		if ((eventHandler.fieldSelected && eventHandler.unitSelected) || playerTurn == 1)
 		{
 			if (playerTurn == 0)
+			{
 				selectedFieldPos = selectedField(eventHandler.mousePosition, selectedFieldIndex);
+			}
 			else
 			{
-				selectedFieldPos = selectedField(Vector2f(atoi(positionX.c_str()), atoi(positionY.c_str())), selectedFieldIndex);
+				selectedFieldPos = level->fieldsPositions[selectedFieldIndex];
+				cout << "selectedFieldPos = " << selectedFieldPos.x << ", " << selectedFieldPos.y << endl;
 			}
 
 			for each (Field *field in level->fields)
@@ -156,7 +155,6 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 					if (!fieldHasUnit)
 					{
 						level->players[playerTurn]->units[selectedUnitIndex]->field = level->fields[selectedFieldIndex];
-						//cout << "Selected field x: " << selectedFieldPos.x << ", y:" << selectedFieldPos.y << endl;
 						level->fields[selectedFieldIndex]->unit = level->players[playerTurn]->units[selectedUnitIndex];
 
 						selectedFieldPos = level->fieldsPositions[selectedFieldIndex];
@@ -289,10 +287,15 @@ Vector2f Game::selectedField(Vector2f mousePosition, int &index)
 		if (level->fields[i]->getRenderer()->GetBounds().contains(mousePosition))
 		{
 			index = i;
-			return level->fields[i]->GetPosition();
+			return level->fieldsPositions[i];
 		}
 	}
 	return Vector2f(0, 0);
+}
+
+Vector2f Game::selectedField(int index)
+{
+	return level->fieldsPositions[index];
 }
 
 void Game::DrawRange(Unit *unit)
@@ -316,17 +319,28 @@ void Game::DrawRange(Unit *unit)
 	}
 }
 
-void Game::GetDecisionInfo(string decision, string& x, string& y, string& idexOfCharacter)
+void Game::GetDecisionInfo(string decision, string& indexOfSelectedField, string& indexOfCharacter)
 {
 	size_t positionOfSlash = decision.find("/");
-	idexOfCharacter = decision.substr(0, positionOfSlash);
-	string positionXY = decision.substr(positionOfSlash + 1);
-	size_t positionOfSemicolon = positionXY.find(";");
-	y = positionXY.substr(positionOfSemicolon + 1);
-	x = positionXY.substr(0, positionOfSemicolon);
+	indexOfCharacter = decision.substr(0, positionOfSlash);
+	indexOfSelectedField = decision.substr(positionOfSlash + 1);
 }
 
 void Game::setDecisionInfo(string newDecision)
 {
 	this->decisionInfo = newDecision;
+}
+
+void Game::UpdateClipsFacts(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
+{
+	theEnv.Reset();
+	theEnv.Run(-1);
+
+	ostringstream ss;
+	ss << "(printout decision \"0/114\")(readline))";
+	string str = ss.str();
+
+	theEnv.Eval(strdup(str.c_str()));
+
+	this->decisionInfo = theRouter.str;
 }

@@ -27,12 +27,14 @@ public:
 	int previousUnitIndex;
 	int selectedUnit(Vector2f mousePosition);
 	Vector2f selectedField(Vector2f mousePosition, int &index);
+	Vector2f selectedField(int index);
 	void DrawRange(Unit *unit);
 	bool playerTurn;
 	Hud* hud;
 	int selectedUnitIndex;
-	void GetDecisionInfo(string decision, string& x, string& y, string& idexOfCharacter);
+	void GetDecisionInfo(string decision, string& indexOfSelectedField, string& indexOfCharacter);
 	void setDecisionInfo(string newDecision);
+	void UpdateClipsFacts(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv);
 private:
 	Level* level;
 	Background *background;
@@ -44,7 +46,6 @@ private:
 	bool flag;
 	//do odczytywania wiadomosci z clipsa
 	string decisionInfo;
-	string idexOfCharacter;
-	string positionY;
-	string positionX;
+	string selectedUnitIndexStr;
+	string selectedFieldIndexStr;
 };
