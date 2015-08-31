@@ -13,6 +13,7 @@ class Entity
 {
 public:
     Entity();
+	Entity(const Entity& obj);
 	virtual ~Entity();
 	virtual void setPosition(sf::Vector2f position);
 	virtual void Update();
@@ -27,6 +28,9 @@ public:
 	bool isAlive;
 	string message;
 	bool inRange;
+	float RowIndex;
+	float ColumnIndex;
+	int index;
 private:
 	bool IsDestroyed;
 protected:

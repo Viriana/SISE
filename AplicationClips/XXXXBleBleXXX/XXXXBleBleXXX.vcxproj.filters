@@ -175,7 +175,19 @@
     <None Include="DLL\sfml-window-d-2.dll">
       <Filter>DLLs</Filter>
     </None>
-    <None Include="adam.clp">
+    <None Include="facts.clp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="rules.clp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="template.clp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="selectUnitRules.clp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="selectFieldRules.clp">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

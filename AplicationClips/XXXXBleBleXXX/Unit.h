@@ -9,6 +9,7 @@ class Unit : public Entity
 {
 public:
 	Unit();
+	Unit(const Unit& obj);
 	virtual ~Unit();
 	virtual void Update();
 	void Move(Vector2f v);

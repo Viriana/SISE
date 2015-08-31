@@ -7,6 +7,8 @@ Level::Level()
 	ColumnsNumber = 15;
 	RawsNumber = 11;
 	levelNumber = 1;
+	Game = nullptr;
+	background = new Background();
 }
 Level::~Level()
 {
@@ -14,7 +16,6 @@ Level::~Level()
 }
 void Level::Init()
 {
-	background = new Background;
 	background->setPosition(Vector2f(0, 20));
 	entities.push_back(background);
 
@@ -27,6 +28,9 @@ void Level::Init()
 			field->setPosition(fieldPosition);
 			fieldsPositions.push_back(fieldPosition);
 			field->render = false;
+			field->ColumnIndex = i;
+			field->RowIndex = j;
+			field->index = i * 11 + j;
 			entities.push_back(field);
 			fields.push_back(field);
 		}
@@ -55,6 +59,10 @@ void Level::Init()
 					fields[155]->unit = players[i]->units[j];
 				}
 
+				Game->selectedField(field1->GetPosition(), field1->index);
+				field1->ColumnIndex = fields[field1->index]->ColumnIndex;
+				field1->RowIndex = fields[field1->index]->RowIndex;
+
 				players[i]->units[j]->field = field1;
 				fields[1]->hasUnit = true;
 				fields[155]->hasUnit = true;
@@ -73,6 +81,10 @@ void Level::Init()
 					field1->setPosition(fieldsPositions[158]);
 					fields[158]->unit = players[i]->units[j];
 				}
+
+				Game->selectedField(field1->GetPosition(), field1->index);
+				field1->ColumnIndex = fields[field1->index]->ColumnIndex;
+				field1->RowIndex = fields[field1->index]->RowIndex;
 					
 				players[i]->units[j]->field = field1;
 				fields[4]->hasUnit = true;
@@ -91,6 +103,10 @@ void Level::Init()
 					field1->setPosition(fieldsPositions[161]);
 					fields[161]->unit = players[i]->units[j];
 				}
+
+				Game->selectedField(field1->GetPosition(), field1->index);
+				field1->ColumnIndex = fields[field1->index]->ColumnIndex;
+				field1->RowIndex = fields[field1->index]->RowIndex;
 					
 				players[i]->units[j]->field = field1;
 				fields[7]->hasUnit = true;
@@ -110,13 +126,16 @@ void Level::Init()
 					fields[164]->unit = players[i]->units[j];
 				}
 
+				Game->selectedField(field1->GetPosition(), field1->index);
+				field1->ColumnIndex = fields[field1->index]->ColumnIndex;
+				field1->RowIndex = fields[field1->index]->RowIndex;
+
 				players[i]->units[j]->field = field1;
 				fields[10]->hasUnit = true;
 				fields[164]->hasUnit = true;
 			}
 		}
 	}
-
 }
 
 void Level::Update( float dt )

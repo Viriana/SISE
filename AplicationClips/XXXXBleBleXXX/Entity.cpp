@@ -1,12 +1,30 @@
 #include <algorithm>
 #include "Entity.h"
 
-Entity::Entity() :
-IsDestroyed(false)
+Entity::Entity()
 {
+	IsDestroyed = false;
 	render = true;
 	isAlive = true;
+	inRange = false;
+	RowIndex = -1;
+	ColumnIndex = -1;
+	index = -1;
 }
+
+Entity::Entity(const Entity& obj)
+{
+	type = obj.type;
+	Renderer = obj.Renderer;
+	index = obj.index;
+	ColumnIndex = obj.ColumnIndex;
+	RowIndex = obj.RowIndex;
+	render = obj.render;
+	isAlive = obj.isAlive;
+	inRange = obj.inRange;
+	IsDestroyed = obj.IsDestroyed;
+}
+
 Entity::~Entity()
 {
 }

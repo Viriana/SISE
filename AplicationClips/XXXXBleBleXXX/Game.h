@@ -20,6 +20,10 @@ public:
 	Game();
 	virtual ~Game();
 	bool OpponentUnit(Unit* unit);
+	vector<int> ComputeAvailableFields();
+	int ComputeDistanceHexGrid(Vector2f A, Vector2f B);
+	void UpdateAvailableFieldsInCLips(vector<int> tab, CLIPSCPPEnv& theEnv);
+	void UpdateUnitsInClips(CLIPSCPPEnv& theEnv);
 	void play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv);
 	void Update(float &time);
 	EventHandler eventHandler;
@@ -32,9 +36,12 @@ public:
 	bool playerTurn;
 	Hud* hud;
 	int selectedUnitIndex;
-	void GetDecisionInfo(string decision, string& indexOfSelectedField, string& indexOfCharacter);
 	void setDecisionInfo(string newDecision);
-	void UpdateClipsFacts(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv);
+	void ComputeUnitSelectionInCLips(CLIPSCPPEnv& theEnv);
+	void ComputeFieldSelectionInClips(CLIPSCPPEnv& theEnv);
+	string GetSelectedUnitFromClips(myCLIPSRouter& theRouter, CLIPSCPPEnv& theEnv);
+	string GetSelectedFieldFromClips(myCLIPSRouter& theRouter, CLIPSCPPEnv& theEnv);
+	void GenerateRandomNumberForClipse(int from, int to, CLIPSCPPEnv &theEnv);
 private:
 	Level* level;
 	Background *background;

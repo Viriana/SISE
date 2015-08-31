@@ -13,7 +13,7 @@ public:
 	virtual int Query(CLIPSCPPEnv *, const char *);
 	virtual int Print(CLIPSCPPEnv *, const char *, const char *);
 	string str = "";
-	char *m_lName = "decision";
+	char *m_lName = "output1";
 };
 
 #endif

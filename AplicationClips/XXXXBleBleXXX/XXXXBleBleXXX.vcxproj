@@ -181,7 +181,6 @@
     <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="adam.clp" />
     <None Include="DLL\libsndfile-1.dll" />
     <None Include="DLL\openal32.dll" />
     <None Include="DLL\sfml-audio-2.dll" />
@@ -194,6 +193,11 @@
     <None Include="DLL\sfml-system-d-2.dll" />
     <None Include="DLL\sfml-window-2.dll" />
     <None Include="DLL\sfml-window-d-2.dll" />
+    <None Include="facts.clp" />
+    <None Include="rules.clp" />
+    <None Include="selectFieldRules.clp" />
+    <None Include="selectUnitRules.clp" />
+    <None Include="template.clp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

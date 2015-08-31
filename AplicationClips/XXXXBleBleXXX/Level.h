@@ -22,7 +22,6 @@ class Level
 public:
 	Level();
 	virtual ~Level();
-	int getLevelNumber();
 	void Init();
 	void Update( float dt );
 	void Render(RenderWindow* window);
@@ -39,9 +38,4 @@ private:
 	vector <Entity *> entities;
 	vector <Entity *> pendingDestroy;
 	Background* background;
-	Knight* knight;
-	Sorcerer* sorcerer;
-	Healer* healer;
-	Archer* archer;
-	Field* field;
 };

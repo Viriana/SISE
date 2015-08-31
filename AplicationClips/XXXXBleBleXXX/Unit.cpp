@@ -1,11 +1,42 @@
 
 #include "Unit.h"
+#include "Field.h"
 
 
 Unit::Unit()
 {
+	field = nullptr;
+	IsDestroyed = false;
+	ColumnsNumber = -1;
+	RawsNumber = -1;
+	strength = -1;
+	range = -1;
+	maxHealthPoints = -1;
+	armor = -1;
+	currentHealthPoints = -1;
+	movementSpeed = -1;
+	isSelected = false;
 }
 
+Unit::Unit(const Unit& obj)
+{
+	type = obj.type;
+	Renderer = obj.Renderer;
+	index = obj.index;
+	ColumnIndex = obj.ColumnIndex;
+	RowIndex = obj.RowIndex;
+	field = obj.field;
+	IsDestroyed = obj.IsDestroyed;
+	ColumnsNumber = obj.ColumnsNumber;
+	RawsNumber = obj.RawsNumber;
+	strength = obj.strength;
+	range = obj.range;
+	maxHealthPoints = obj.maxHealthPoints;
+	armor = obj.armor;
+	currentHealthPoints = obj.currentHealthPoints;
+	movementSpeed = obj.movementSpeed;
+	isSelected = obj.isSelected;
+}
 
 Unit::~Unit()
 {

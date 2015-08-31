@@ -5,19 +5,22 @@
 
 int main(int argc, TCHAR *argv[])
 {
+	srand(time(NULL));
+
 	Game *game = new Game();
 	CLIPSCPPEnv theEnv;
 	myCLIPSRouter theRouter;
 
 	theEnv.AddRouter("myRouter", 100, &theRouter);
-	theEnv.Load("adam.clp");
-
-	game->setDecisionInfo(theRouter.str);
+	theEnv.Load("template.clp");
+	theEnv.Load("facts.clp");
+	theEnv.Reset();
+	theEnv.Run(-1);
+	
+	game->UpdateUnitsInClips(theEnv);
 	game->play(theRouter, theEnv);
 
 	delete game;
-
-	system("pause");
 
 	return 0;
 }
