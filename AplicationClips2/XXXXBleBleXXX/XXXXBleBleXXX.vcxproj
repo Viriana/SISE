@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0DED3A6A-11BC-4AC5-8AFE-98AB3587D69A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>XXXXBleBleXXX</RootNamespace>
+    <ProjectName>ApplicationClips</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v120_xp</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformToolset>v120_xp</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.1A\Include;C:\SFML-2.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.1A\Lib;C:\SFML-2.1\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\SFML-2.1\lib;..\AplicationClips\XXXXBleBleXXX;..\libs\include;..\libs\include\fl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\libs\lib;..\Clipse\Projects\Libraries;..\Clipse\Projects\Libraries\Microsoft;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-network-d.lib;CLIPSCPP.lib;CLIPSDynamic32.lib;CLIPSDynamic64.lib;CLIPSJNI64.lib;CLIPSJNI32.lib;CLIPSStatic32.lib;CLIPSStatic64.lib;CLIPSWrapper32.lib;CLIPSWrapper64.lib;fuzzylited.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\SFML-2.1\include;..\libs\include;..\Clipse\Projects\Source\Integration;..\Clipse\Projects\Source\CLIPS;..\Clipse\Projects\Libraries\Microsoft;..\Clipse\Projects\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\SFML-2.1\lib;..\libs\lib;..\Clipse\Projects\Libraries;..\Clipse\Projects\Libraries\Microsoft;..\Clipse\Projects\Source\CLIPS;..\Clipse\Projects\Source\Integration;C:\SFML-2.1\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;CLIPSCPP.lib;CLIPSDynamic32.lib;CLIPSDynamic64.lib;CLIPSJNI64.lib;CLIPSJNI32.lib;CLIPSStatic32.lib;CLIPSStatic64.lib;CLIPSWrapper32.lib;CLIPSWrapper64.lib;fuzzylited.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;CLIPSCPP.lib;CLIPSDynamic32.lib;CLIPSDynamic64.lib;CLIPSJNI64.lib;CLIPSJNI32.lib;CLIPSStatic32.lib;CLIPSStatic64.lib;CLIPSWrapper32.lib;CLIPSWrapper64.lib;fuzzylited.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Ania\Documents\Visual Studio 2013\Projects\XXXXBleBleXXX\Clipse\Projects\Source\Integration;C:\Users\Ania\Documents\Visual Studio 2013\Projects\XXXXBleBleXXX\Clipse\Projects\Source\CLIPS;C:\Users\Ania\Documents\Visual Studio 2013\Projects\XXXXBleBleXXX\Clipse\Projects\Libraries;C:\SFML-2.1\lib;C:\Users\Ania\Documents\Visual Studio 2013\Projects\XXXXBleBleXXX\Clipse\Projects\Libraries\Microsoft;..\..\libs\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB[:libc.lib];/NODEFAULTLIB[:libcmt.lib];/NODEFAULTLIB[:msvcrt.lib];/NODEFAULTLIB[:libcd.lib];/NODEFAULTLIB[:libcmtd.lib];/NODEFAULTLIB:libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Source\Integration;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Source\CLIPS;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Libraries;D:\Studia\1Stopien\3rok\sem6\SISE\Heroes3\repo\SISE\AplicationClips\Clipse\Projects\Libraries\Microsoft;C:\SFML-2.1\include;..\..\libs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\SFML-2.1\include;C:\Users\Ania\Desktop\newSise\libs\include;C:\Users\Ania\Desktop\newSise\AplicationClips\Clipse\Projects\Source\Integration;C:\Users\Ania\Desktop\newSise\AplicationClips\Clipse\Projects\Source\CLIPS;C:\Users\Ania\Desktop\newSise\AplicationClips\Clipse\Projects\Libraries\Microsoft;C:\Users\Ania\Desktop\newSise\AplicationClips\Clipse\Projects\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\SFML-2.1\lib;..\libs\lib;C:\Users\Ania\Desktop\newSise\AplicationClips\Clipse\Projects\Source\Integration;C:\Users\Ania\Desktop\newSise\AplicationClips\Clipse\Projects\Source\CLIPS;C:\Users\Ania\Desktop\newSise\AplicationClips\Clipse\Projects\Libraries;C:\Users\Ania\Desktop\newSise\AplicationClips\Clipse\Projects\Libraries\Microsoft;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <Link>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;CLIPSCPP.lib;CLIPSDynamic32.lib;CLIPSDynamic64.lib;CLIPSJNI64.lib;CLIPSJNI32.lib;CLIPSStatic32.lib;CLIPSStatic64.lib;CLIPSWrapper32.lib;CLIPSWrapper64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+      <AdditionalOptions>/ENTRY:"wWinMainCRTStartup" %(AdditionalOptions)</AdditionalOptions>
+      <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB[:libc.lib];/NODEFAULTLIB[:libcmt.lib];/NODEFAULTLIB:MSVCRT.lib;/NODEFAULTLIB[:libcd.lib];/NODEFAULTLIB[:libcmtd.lib];/NODEFAULTLIB:[:libcmt.lib];%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Clipse\Projects\Source\Integration\clipscpp.h" />
+    <ClInclude Include="Archer.h" />
+    <ClInclude Include="Background.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Field.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Healer.h" />
+    <ClInclude Include="Hud.h" />
+    <ClInclude Include="Knight.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Router.h" />
+    <ClInclude Include="Sorcerer.h" />
+    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="Unit.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Clipse\Projects\Source\Integration\clipscpplib.cpp" />
+    <ClCompile Include="Archer.cpp" />
+    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
+    <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Healer.cpp" />
+    <ClCompile Include="Hud.cpp" />
+    <ClCompile Include="Knight.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Router.cpp" />
+    <ClCompile Include="Sorcerer.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Unit.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="adam.clp" />
+    <None Include="ania.clp" />
+    <None Include="DLL\libsndfile-1.dll" />
+    <None Include="DLL\openal32.dll" />
+    <None Include="DLL\sfml-audio-2.dll" />
+    <None Include="DLL\sfml-audio-d-2.dll" />
+    <None Include="DLL\sfml-graphics-2.dll" />
+    <None Include="DLL\sfml-graphics-d-2.dll" />
+    <None Include="DLL\sfml-network-2.dll" />
+    <None Include="DLL\sfml-network-d-2.dll" />
+    <None Include="DLL\sfml-system-2.dll" />
+    <None Include="DLL\sfml-system-d-2.dll" />
+    <None Include="DLL\sfml-window-2.dll" />
+    <None Include="DLL\sfml-window-d-2.dll" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
