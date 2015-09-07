@@ -9,8 +9,10 @@
 #include "SpriteRenderer.h"
 #include "Background.h"
 #include "Router.h"
+#include <vector>
 #include <windows.h>
 #include "fl\Headers.h"
+
 using namespace sf;
 using namespace fl;
 class Level;
@@ -35,7 +37,7 @@ public:
 	void GetDecisionInfo(string decision, string& indexOfSelectedField, string& indexOfCharacter);
 	void setDecisionInfo(string newDecision);
 	void UpdateClipsFacts(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv);
-	string ProcessFuzzyDecision();
+	string ProcessFuzzyDecision(Player* player1, Player* player2);
 private:
 	bool isFuzzy;
 	Level* level;

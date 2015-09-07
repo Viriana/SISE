@@ -1,0 +1,1 @@
+(assert (decision (selectedUnitIndex 0)))

@@ -1,6 +1,6 @@
 #include "Level.h"
 #include "Game.h"
-#include "C:\Users\Ania\Desktop\newSise\AplicationClips\Clipse\Projects\Source\CLIPS\clips.h"
+#include "clips.h"
 #include <ctime>
 #include <sstream>
 
@@ -26,7 +26,7 @@ view(Vector2f(400.0f, 300.0f), Vector2f(800.0f, 600.0f))
 	decisionInfo = "";
 	selectedUnitIndexStr = "";
 	selectedFieldIndexStr = "";
-	isFuzzy = false;
+	isFuzzy = true;
 	fuzzyEngine = new fl::Engine("fuzzy_engine!");
 }
 
@@ -72,9 +72,12 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 		
 		if ((eventHandler.unitSelected && !flag) || playerTurn == 1)
 		{
-			
-			if (playerTurn == 0)
-				selectedUnitIndex = selectedUnit(eventHandler.mousePosition);
+
+			if (playerTurn == 0){
+			selectedUnitIndex = selectedUnit(eventHandler.mousePosition);
+			cout << this->level->players[0]->units[selectedUnitIndex]->GetPosition().x << endl;
+			cout << this->level->players[0]->units[selectedUnitIndex]->GetPosition().y << endl;
+			}
 			else if (isFuzzy == false)
 			{
 				UpdateClipsFacts(theRouter, theEnv);
@@ -90,7 +93,7 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 			}
 			else if (isFuzzy == true)
 			{
-				decisionInfo = ProcessFuzzyDecision();
+				decisionInfo = ProcessFuzzyDecision(this->level->players[0],this->level->players[1]);
 				GetDecisionInfo(decisionInfo, selectedFieldIndexStr, selectedUnitIndexStr);
 
 				Time delayTime = milliseconds(2000);
@@ -359,8 +362,22 @@ void Game::UpdateClipsFacts(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 
 	this->decisionInfo = theRouter.str;
 }
-string Game::ProcessFuzzyDecision()
+string Game::ProcessFuzzyDecision(Player* player1, Player* player2)
 {
+	vector<Unit*> playerCharacters = player2->units;
+	vector<Unit*> enemies = player1->units;
+	if (playerTurn == 0){
+	    playerCharacters =player1->units;
+		enemies = player2->units;
+	}
+	srand(time(NULL)); //na razie wybiera pionek losowo
+	Unit* choosenCharacter = playerCharacters[rand() % playerCharacters.size()];
 	string decision = "";
+	Vector2f position = playerCharacters[0]->field->GetPosition();
+	position.x = position.x + 10 + 55;
+	position.y = position.y + 10 +55;
+	char x = (char) position.x;
+	char y = (char)position.y;
+	decision = "0/" + x + y;
 	return decision;
 }
