@@ -56,6 +56,7 @@ public:
 	int FindClosestEnemysDistanceToPlayer(vector<Unit*> &enemies, Unit* selectedCharacter);
 	vector<int> CalculateAviableDistances(int characterIndex, vector<int> aviableFileds);
 	Unit* Game::FindClosestEnemy(vector<Unit*> &enemies, Unit* selectedCharacter);
+	int RunAwayFromEnemy(Unit* enemy, Unit* character, vector<int> aviableFields, int currentDistance, int currentCharacterIndex);
 	bool isFuzzy;
 	sortedList  enemiesDictionary;
 	string FuzzyDecision;
