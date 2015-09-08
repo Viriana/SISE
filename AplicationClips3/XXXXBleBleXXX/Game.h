@@ -10,10 +10,17 @@
 #include "Background.h"
 #include "Router.h"
 #include "fl\Headers.h"
+#include <map>
 
 #include <windows.h>
 
 using namespace sf;
+using namespace fl;
+
+typedef map<int, Unit*> sortedList;
+typedef pair<int, Unit*> indexPair;
+typedef vector<int>::iterator it;
+
 class Level;
 class Game
 {
@@ -43,10 +50,13 @@ public:
 	string GetSelectedUnitFromClips(myCLIPSRouter& theRouter, CLIPSCPPEnv& theEnv);
 	string GetSelectedFieldFromClips(myCLIPSRouter& theRouter, CLIPSCPPEnv& theEnv);
 	void GenerateRandomNumberForClipse(int from, int to, CLIPSCPPEnv &theEnv);
-	string ProcessFuzzyDecision(Player* player1, Player* player2);
+	void ProcessFuzzyDecision(Player* player1, Player* player2);
 	void GetDecisionInfo(string decision, string& indexOfSelectedField, string& indexOfCharacter);
 	vector<int> ComputeAvailableFields(int &UnitIndex);
+	int FindClosestEnemysDistanceToPlayer(vector<Unit*> &enemies, Unit* selectedCharacter);
+	vector<int> CalculateAviableDistances(int characterIndex, vector<int> aviableFileds);
 	bool isFuzzy;
+	sortedList  enemiesDictionary;
 private:
 	fl::Engine* fuzzyEngine; //potrzebne dla przetwarzania info z fuzzy 
 	Level* level;
