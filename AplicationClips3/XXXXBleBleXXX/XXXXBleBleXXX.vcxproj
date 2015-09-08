@@ -80,7 +80,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\libs\lib;..\Clipse\Projects\Libraries;..\Clipse\Projects\Libraries\Microsoft;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-network-d.lib;CLIPSCPP.lib;CLIPSDynamic32.lib;CLIPSDynamic64.lib;CLIPSJNI64.lib;CLIPSJNI32.lib;CLIPSStatic32.lib;CLIPSStatic64.lib;CLIPSWrapper32.lib;CLIPSWrapper64.lib;fuzzylited.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ForceSymbolReferences> __DllMainCRTStartup@12</ForceSymbolReferences>
+      <ForceSymbolReferences>__DllMainCRTStartup@12</ForceSymbolReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

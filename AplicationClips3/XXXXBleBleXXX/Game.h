@@ -50,7 +50,7 @@ public:
 	string GetSelectedUnitFromClips(myCLIPSRouter& theRouter, CLIPSCPPEnv& theEnv);
 	string GetSelectedFieldFromClips(myCLIPSRouter& theRouter, CLIPSCPPEnv& theEnv);
 	void GenerateRandomNumberForClipse(int from, int to, CLIPSCPPEnv &theEnv);
-	void ProcessFuzzyDecision(Player* player1, Player* player2);
+	string& ProcessFuzzyDecision(Player* player1, Player* player2);
 	void GetDecisionInfo(string decision, string& indexOfSelectedField, string& indexOfCharacter);
 	vector<int> ComputeAvailableFields(int &UnitIndex);
 	int FindClosestEnemysDistanceToPlayer(vector<Unit*> &enemies, Unit* selectedCharacter);
@@ -68,7 +68,6 @@ private:
 	Vector2f selectedFieldPos;
 	bool flag;
 	//do odczytywania wiadomosci z clipsa
-	string decisionInfo;
 	string selectedUnitIndexStr;
 	string selectedFieldIndexStr;
 };

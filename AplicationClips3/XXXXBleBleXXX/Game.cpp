@@ -94,8 +94,8 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 			}
 			else
 			{
-			    ProcessFuzzyDecision(this->level->players[0], this->level->players[1]);
-				GetDecisionInfo(decisionInfo, selectedFieldIndexStr, selectedUnitIndexStr);
+			    string dec = ProcessFuzzyDecision(this->level->players[0], this->level->players[1]);
+				GetDecisionInfo(dec, selectedFieldIndexStr, selectedUnitIndexStr);
 
 				Time delayTime = milliseconds(2000);
 				sleep(delayTime);
@@ -357,7 +357,7 @@ void Game::DrawRange(Unit *unit)
 
 void Game::setDecisionInfo(string newDecision)
 {
-	this->decisionInfo = newDecision;
+	//this->decisionInfo = newDecision;
 }
 
 void Game::ComputeUnitSelectionInCLips(CLIPSCPPEnv &theEnv)
@@ -530,25 +530,26 @@ void Game::GenerateRandomNumberForClipse(int from, int to, CLIPSCPPEnv &theEnv)
 	theEnv.Eval(_strdup(str.c_str()));
 }
 
-void Game::ProcessFuzzyDecision(Player* player1, Player* player2)
+string& Game::ProcessFuzzyDecision(Player* player1, Player* player2)
 {
-	this->fuzzyEngine->restart();
 	vector<Unit*> playerCharacters = player2->units;
 	vector<Unit*> enemies = player1->units;
 	srand(time(NULL)); //na razie wybiera pionek losowo
 	int characterIndex = rand() % playerCharacters.size();
 	Unit* choosenCharacter = playerCharacters[characterIndex];
 	vector<int> aviableFileds = ComputeAvailableFields(characterIndex);
-	vector<int> aviableDistances = CalculateAviableDistances(choosenCharacter->field->index, aviableFileds);
+//	vector<int> aviableDistances = CalculateAviableDistances(choosenCharacter->field->index, aviableFileds);
 	double curretCharacterMovmentSpeed = (double)choosenCharacter->getMovementSpeed();
-	//my fuzzy
+	this->fuzzyEngine->restart();
+
 	InputVariable * input = new InputVariable();
 	input->setName("DistanceToEnemy");
-	input->addTerm(new Triangle("NEAR", 0, curretCharacterMovmentSpeed / 2.0));
-	input->addTerm(new Triangle("MIDDLE", curretCharacterMovmentSpeed / 2.0, curretCharacterMovmentSpeed));
-	input->addTerm(new Triangle("FAR", curretCharacterMovmentSpeed, 15));
+	input->setRange(0, 30);
+	input->addTerm(new Triangle("NEAR", 0, curretCharacterMovmentSpeed/8.0 ,curretCharacterMovmentSpeed / 4.0));
+	input->addTerm(new Triangle("MIDDLE", curretCharacterMovmentSpeed / 4.0, curretCharacterMovmentSpeed/2.0, curretCharacterMovmentSpeed));
+	input->addTerm(new Triangle("FAR", curretCharacterMovmentSpeed, 15, 30));
 	fuzzyEngine->addInputVariable(input);
-
+	
 	OutputVariable* danger = new OutputVariable;
 	danger->setName("Danger");
 	danger->setRange(0, 2);
@@ -557,29 +558,33 @@ void Game::ProcessFuzzyDecision(Player* player1, Player* player2)
 	danger->addTerm(new Triangle("MEDIUM", 0.5f, 1.5f));
 	danger->addTerm(new Triangle("HIGH", 1.0f, 2.0f));
 	fuzzyEngine->addOutputVariable(danger);
-	
-	fuzzyEngine->addOutputVariable(danger);
+
 	try{
 		RuleBlock* ruleblock = new RuleBlock;
 		ruleblock->addRule(Rule::parse("if DistanceToEnemy is NEAR then Danger is HIGH", fuzzyEngine));
 		ruleblock->addRule(Rule::parse("if DistanceToEnemy is MIDDLE then Danger is MEDIUM", fuzzyEngine));
-		ruleblock->addRule(Rule::parse("if DistanceToEnemy is MIDDLE then Danger is MEDIUM", fuzzyEngine));
 		ruleblock->addRule(Rule::parse("if DistanceToEnemy is FAR then Danger is LOW", fuzzyEngine));
+		fuzzyEngine->addRuleBlock(ruleblock);
+		fuzzyEngine->configure("", "", "Minimum", "Maximum", "Centroid");
+		
+		std::string status;
+		if (!fuzzyEngine->isReady(&status))
+			printf("Engine not ready. \nThe following errors were encountered:\n" + *status.c_str());
+
+		int DistanceToNearestEnemy = 2;// this->FindClosestEnemysDistanceToPlayer(enemies, choosenCharacter);
+		fuzzyEngine->setInputValue("DistanceToEnemy", DistanceToNearestEnemy);
+		fuzzyEngine->process();
+		Time delayTime = milliseconds(1000);
+		sleep(delayTime);
+		fl::scalar fuzzyDecision = fuzzyEngine->getOutputValue("Danger");
+
+		fuzzyEngine->removeInputVariable("DistanceToEnemy");
+		fuzzyEngine->removeOutputVariable("Danger");
+		fuzzyEngine->removeRuleBlock(0);
 	}
 	catch (fl::Exception  e){
 		std::cout << e.what() << endl;
 	}
-	std::string status;
-	if (!fuzzyEngine->isReady(&status))
-		printf("Engine not ready. \nThe following errors were encountered:\n" + *status.c_str());
-	//end my fuzzy
-	//try fuzzy
-	enemiesDictionary.clear();
-	int DistanceToNearestEnemy = this->FindClosestEnemysDistanceToPlayer(enemies, choosenCharacter);
-	fuzzyEngine->setInputValue("DistanceToEnemy", DistanceToNearestEnemy);
-	fuzzyEngine->process();
-	double fuzzyDecision = danger->getOutputValue();
-	//end try fuzzy
 	int position = aviableFileds[(rand() % aviableFileds.size())];
 	ostringstream ss;
 	ss << characterIndex;
@@ -587,8 +592,9 @@ void Game::ProcessFuzzyDecision(Player* player1, Player* player2)
 	ostringstream positonString;
 	positonString << position;
 	string positionS = positonString.str();
-	decisionInfo = "";
-	decisionInfo = str + '/' + positionS;
+	string decInfo = "";
+	decInfo = str + "/" + positionS;
+	return decInfo;
 }
 
 void Game::GetDecisionInfo(string decision, string& indexOfSelectedField, string& indexOfCharacter)
