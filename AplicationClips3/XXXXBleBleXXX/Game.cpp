@@ -94,8 +94,8 @@ void Game::play(myCLIPSRouter &theRouter, CLIPSCPPEnv &theEnv)
 			}
 			else
 			{
-			    string dec = ProcessFuzzyDecision(this->level->players[0], this->level->players[1]);
-				GetDecisionInfo(dec, selectedFieldIndexStr, selectedUnitIndexStr);
+			    ProcessFuzzyDecision(this->level->players[0], this->level->players[1]);
+				GetDecisionInfo(this->FuzzyDecision, selectedFieldIndexStr, selectedUnitIndexStr);
 
 				Time delayTime = milliseconds(2000);
 				sleep(delayTime);
@@ -355,9 +355,9 @@ void Game::DrawRange(Unit *unit)
 	}
 }
 
-void Game::setDecisionInfo(string newDecision)
+void Game::setDecisionInfo(string& newDecision)
 {
-	//this->decisionInfo = newDecision;
+	this->FuzzyDecision = newDecision;
 }
 
 void Game::ComputeUnitSelectionInCLips(CLIPSCPPEnv &theEnv)
@@ -530,7 +530,7 @@ void Game::GenerateRandomNumberForClipse(int from, int to, CLIPSCPPEnv &theEnv)
 	theEnv.Eval(_strdup(str.c_str()));
 }
 
-string& Game::ProcessFuzzyDecision(Player* player1, Player* player2)
+void Game::ProcessFuzzyDecision(Player* player1, Player* player2)
 {
 	vector<Unit*> playerCharacters = player2->units;
 	vector<Unit*> enemies = player1->units;
@@ -559,7 +559,6 @@ string& Game::ProcessFuzzyDecision(Player* player1, Player* player2)
 	danger->addTerm(new Triangle("HIGH", 1.0f, 2.0f));
 	fuzzyEngine->addOutputVariable(danger);
 
-	try{
 		RuleBlock* ruleblock = new RuleBlock;
 		ruleblock->addRule(Rule::parse("if DistanceToEnemy is NEAR then Danger is HIGH", fuzzyEngine));
 		ruleblock->addRule(Rule::parse("if DistanceToEnemy is MIDDLE then Danger is MEDIUM", fuzzyEngine));
@@ -571,30 +570,47 @@ string& Game::ProcessFuzzyDecision(Player* player1, Player* player2)
 		if (!fuzzyEngine->isReady(&status))
 			printf("Engine not ready. \nThe following errors were encountered:\n" + *status.c_str());
 
-		int DistanceToNearestEnemy = 2;// this->FindClosestEnemysDistanceToPlayer(enemies, choosenCharacter);
+		int DistanceToNearestEnemy = this->FindClosestEnemysDistanceToPlayer(enemies, choosenCharacter);
+		Unit* nearestEnemy = FindClosestEnemy(enemies, choosenCharacter);
 		fuzzyEngine->setInputValue("DistanceToEnemy", DistanceToNearestEnemy);
 		fuzzyEngine->process();
-		Time delayTime = milliseconds(1000);
+		Time delayTime = milliseconds(10000);
 		sleep(delayTime);
 		fl::scalar fuzzyDecision = fuzzyEngine->getOutputValue("Danger");
 
 		fuzzyEngine->removeInputVariable("DistanceToEnemy");
 		fuzzyEngine->removeOutputVariable("Danger");
 		fuzzyEngine->removeRuleBlock(0);
+	
+	if (0 <= fuzzyDecision <= 0.5){
+		// enemy is near, attack
+		ostringstream ss;
+		ss << characterIndex;
+		ss << "/";
+		ss << nearestEnemy->field->index;
+		string decisionInformation = ss.str();
+		this->setDecisionInfo(decisionInformation);
 	}
-	catch (fl::Exception  e){
-		std::cout << e.what() << endl;
+	else if (0.5 < fuzzyDecision < 1.5)
+	{
+		// enemy is no so far, select the farest position
+		ostringstream ss;
+		ss << characterIndex;
+		ss << "/";
+		ss << nearestEnemy->field->index;
+		string decisionInformation = ss.str();
+		this->setDecisionInfo(decisionInformation);
 	}
-	int position = aviableFileds[(rand() % aviableFileds.size())];
-	ostringstream ss;
-	ss << characterIndex;
-	string str = ss.str();
-	ostringstream positonString;
-	positonString << position;
-	string positionS = positonString.str();
-	string decInfo = "";
-	decInfo = str + "/" + positionS;
-	return decInfo;
+	else
+	{
+		//enemy is far, select the nearest position
+		ostringstream ss;
+		ss << characterIndex;
+		ss << "/";
+		ss << aviableFileds[(rand() % aviableFileds.size())];
+		string decisionInformation = ss.str();
+		this->setDecisionInfo(decisionInformation);
+	}
 }
 
 void Game::GetDecisionInfo(string decision, string& indexOfSelectedField, string& indexOfCharacter)
@@ -607,6 +623,26 @@ void Game::GetDecisionInfo(string decision, string& indexOfSelectedField, string
 int Game::FindClosestEnemysDistanceToPlayer(vector<Unit*> &enemies, Unit* selectedCharacter)
 {
 	Vector2f a = Vector2f(selectedCharacter->field->ColumnIndex, selectedCharacter->field->RowIndex);
+	vector<int> enemiesDistanceToPlayer;
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		int c = enemies[i]->field->ColumnIndex;
+		int r = enemies[i]->field->RowIndex;
+		int distance = ComputeDistanceHexGrid(a, Vector2f(c, r));
+		//enemiesDictionary.insert(indexPair(distance, enemies[i]));
+		enemiesDistanceToPlayer.push_back(distance);
+	}
+//	sortedList::iterator it = enemiesDictionary.begin();
+//	indexPair tmp = *it;
+//	return tmp.first;
+	vector<int>::iterator it = enemiesDistanceToPlayer.begin();
+	return *it;
+}
+
+Unit* Game::FindClosestEnemy(vector<Unit*> &enemies, Unit* selectedCharacter)
+{
+	Vector2f a = Vector2f(selectedCharacter->field->ColumnIndex, selectedCharacter->field->RowIndex);
+	vector<int> enemiesDistanceToPlayer;
 	for (int i = 0; i < enemies.size(); i++)
 	{
 		int c = enemies[i]->field->ColumnIndex;
@@ -614,9 +650,9 @@ int Game::FindClosestEnemysDistanceToPlayer(vector<Unit*> &enemies, Unit* select
 		int distance = ComputeDistanceHexGrid(a, Vector2f(c, r));
 		enemiesDictionary.insert(indexPair(distance, enemies[i]));
 	}
-	sortedList::iterator it = enemiesDictionary.begin();
-	indexPair tmp = *it;
-	return tmp.first;
+		sortedList::iterator it = enemiesDictionary.begin();
+		indexPair tmp = *it;
+		return tmp.second;
 }
 
 vector<int> Game::CalculateAviableDistances(int characterIndex, vector<int> aviableFileds)

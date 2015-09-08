@@ -44,19 +44,21 @@ public:
 	bool playerTurn;
 	Hud* hud;
 	int selectedUnitIndex;
-	void setDecisionInfo(string newDecision);
+	void setDecisionInfo(string& newDecision);
 	void ComputeUnitSelectionInCLips(CLIPSCPPEnv& theEnv);
 	void ComputeFieldSelectionInClips(CLIPSCPPEnv& theEnv);
 	string GetSelectedUnitFromClips(myCLIPSRouter& theRouter, CLIPSCPPEnv& theEnv);
 	string GetSelectedFieldFromClips(myCLIPSRouter& theRouter, CLIPSCPPEnv& theEnv);
 	void GenerateRandomNumberForClipse(int from, int to, CLIPSCPPEnv &theEnv);
-	string& ProcessFuzzyDecision(Player* player1, Player* player2);
+	void ProcessFuzzyDecision(Player* player1, Player* player2);
 	void GetDecisionInfo(string decision, string& indexOfSelectedField, string& indexOfCharacter);
 	vector<int> ComputeAvailableFields(int &UnitIndex);
 	int FindClosestEnemysDistanceToPlayer(vector<Unit*> &enemies, Unit* selectedCharacter);
 	vector<int> CalculateAviableDistances(int characterIndex, vector<int> aviableFileds);
+	Unit* Game::FindClosestEnemy(vector<Unit*> &enemies, Unit* selectedCharacter);
 	bool isFuzzy;
 	sortedList  enemiesDictionary;
+	string FuzzyDecision;
 private:
 	fl::Engine* fuzzyEngine; //potrzebne dla przetwarzania info z fuzzy 
 	Level* level;
