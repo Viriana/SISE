@@ -57,6 +57,8 @@ public:
 	vector<int> CalculateAviableDistances(int characterIndex, vector<int> aviableFileds);
 	Unit* Game::FindClosestEnemy(vector<Unit*> &enemies, Unit* selectedCharacter);
 	int RunAwayFromEnemy(Unit* enemy, Unit* character, vector<int> aviableFields, int currentDistance, int currentCharacterIndex);
+	int GoToEnemy(Unit* enemy, Unit* character, vector<int> aviableFields, int currentDistance, int currentCharacterIndex);
+	int Game::SelectIndexOfTheHealthiestCharacter(vector<Unit*>characters);
 	bool isFuzzy;
 	sortedList  enemiesDictionary;
 	string FuzzyDecision;

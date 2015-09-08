@@ -532,10 +532,22 @@ void Game::GenerateRandomNumberForClipse(int from, int to, CLIPSCPPEnv &theEnv)
 
 void Game::ProcessFuzzyDecision(Player* player1, Player* player2)
 {
-	vector<Unit*> playerCharacters = player2->units;
-	vector<Unit*> enemies = player1->units;
-	srand(time(NULL)); //na razie wybiera pionek losowo
-	int characterIndex = 1;// rand() % playerCharacters.size();
+	vector<Unit*> playerCharacters;
+	for (int i = 0; i < player2->units.size(); i++)
+	{
+		if (player2->units[i]->isAlive){
+			playerCharacters.push_back(player2->units[i]);
+		}
+	}
+	vector<Unit*> enemies;
+	for (int i = 0; i < player1->units.size(); i++)
+	{
+		if (player1->units[i]->isAlive){
+			enemies.push_back(player1->units[i]);
+		}
+	}
+	//na razie wybiera pionek najzdrowszego
+	int characterIndex = SelectIndexOfTheHealthiestCharacter(playerCharacters);
 	Unit* choosenCharacter = playerCharacters[characterIndex];
 	vector<int> aviableFileds = ComputeAvailableFields(characterIndex);
 	double curretCharacterMovmentSpeed = (double)choosenCharacter->getMovementSpeed();
@@ -583,7 +595,7 @@ void Game::ProcessFuzzyDecision(Player* player1, Player* player2)
 	
 	if (0 <= fuzzyDecision && fuzzyDecision <= 0.5){
 		// enemy is far, select the nearest position
-		int newIndex = RunAwayFromEnemy(nearestEnemy, choosenCharacter, aviableFileds, DistanceToNearestEnemy, choosenCharacter->field->index);
+		int newIndex = GoToEnemy(nearestEnemy, choosenCharacter, aviableFileds, DistanceToNearestEnemy, choosenCharacter->field->index);
 		ostringstream ss;
 		ss << characterIndex;
 		ss << "/";
@@ -623,6 +635,7 @@ void Game::GetDecisionInfo(string decision, string& indexOfSelectedField, string
 
 int Game::FindClosestEnemysDistanceToPlayer(vector<Unit*> &enemies, Unit* selectedCharacter)
 {
+	enemiesDictionary.clear();
 	Vector2f a = Vector2f(selectedCharacter->field->ColumnIndex, selectedCharacter->field->RowIndex);
 	vector<int> enemiesDistanceToPlayer;
 	for (int i = 0; i < enemies.size(); i++)
@@ -639,6 +652,7 @@ int Game::FindClosestEnemysDistanceToPlayer(vector<Unit*> &enemies, Unit* select
 
 Unit* Game::FindClosestEnemy(vector<Unit*> &enemies, Unit* selectedCharacter)
 {
+	enemiesDictionary.clear();
 	Vector2f a = Vector2f(selectedCharacter->field->ColumnIndex, selectedCharacter->field->RowIndex);
 	vector<int> enemiesDistanceToPlayer;
 	for (int i = 0; i < enemies.size(); i++)
@@ -684,4 +698,35 @@ int Game::RunAwayFromEnemy(Unit* enemy ,Unit* character, vector<int> aviableFiel
 		}
 	}
 	return decisionIndex;
+}
+
+int Game::GoToEnemy(Unit* enemy, Unit* character, vector<int> aviableFields, int currentDistance, int currentCharacterIndex)
+{
+	int decisionIndex = currentCharacterIndex;
+	for (int i = 0; i < aviableFields.size(); i++){
+		character->field->index = aviableFields[i];
+		Vector2f a = Vector2f(character->field->ColumnIndex, character->field->RowIndex);
+		int c = enemy->field->ColumnIndex;
+		int r = enemy->field->RowIndex;
+		int distance = ComputeDistanceHexGrid(a, Vector2f(c, r));
+		if (distance < currentDistance){
+			currentDistance = distance;
+			decisionIndex = aviableFields[i];
+		}
+	}
+	return decisionIndex;
+}
+
+int Game::SelectIndexOfTheHealthiestCharacter(vector<Unit*>characters)
+{
+	Unit* theHealthestCharacter = characters[0];
+	int indexOfTheHealthest = 0;
+	for (int i = 0; i < characters.size(); i++)
+	{
+		if (theHealthestCharacter->getCurrentHealthPoints() < characters[i]->getCurrentHealthPoints()){
+			theHealthestCharacter = characters[i];
+			indexOfTheHealthest = i;
+		}
+	}
+	return indexOfTheHealthest;
 }
